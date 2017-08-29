@@ -8,7 +8,7 @@ from core.elastic_models import Minion as ElasticMinion
 from core.models import (
     County, Convocation, Minion, MemberOfParliament, MP2Convocation,
     Minion2MP2Convocation)
-# from core.paginator import paginated, DjangoPageRangePaginator
+from core.paginator import paginated, DjangoPageRangePaginator
 
 
 def unique(source):
@@ -109,6 +109,17 @@ def home(request):
 def county(request, county_slug):
     region = get_object_or_404(County, slug=county_slug)
 
+    results = ElasticMinion.search().query(
+        "term", region_slug=region.slug)
+
     return render(request, "county.jinja", {
-        "region": region
+        "region": region,
+        "convocations": Convocation.objects.select_related(
+            "office").filter(office__region=region).order_by("office").annotate(
+                num_mps=Count('mp2convocation', distinct=True),
+                num_minions=Count('mp2convocation__minion')
+        ),
+
+        "search_results": paginated(
+            request, results.sort('mp.grouper', 'name.raw'), cnt=30),
     })

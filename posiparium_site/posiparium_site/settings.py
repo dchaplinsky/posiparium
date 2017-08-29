@@ -27,7 +27,6 @@ DEBUG = False
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -204,6 +203,8 @@ TEMPLATES = [
         "APP_DIRS": True
     },
 ]
+
+CATALOG_PER_PAGE = 30
 
 try:
     from .local_settings import *

@@ -157,6 +157,12 @@ class Minion2MP2Convocation(models.Model):
         d = {}
 
         d["mp"] = self.mp2convocation.to_dict()
+        d["convocation"] = self.mp2convocation.convocation.number
+        d["convocation_id"] = self.mp2convocation.convocation.pk
+        d["body"] = self.mp2convocation.convocation.office.name
+        d["body_id"] = self.mp2convocation.convocation.office.pk
+        d["region"] = self.mp2convocation.convocation.office.region.name
+        d["region_slug"] = self.mp2convocation.convocation.office.region.slug
 
         def generate_suggestions(last_name, first_name, patronymic):
             if not last_name:

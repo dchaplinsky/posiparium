@@ -1,0 +1,116 @@
+    <section class="jumbotron bg-yellow">
+        <div class="container">
+            <div id="ex-search-form">
+                <form class="box" action="/search" method="GET" id="ex-form">
+                    <div class="input-group search-string">
+                        <input type="text" name="q" class="form-control search-name" id="search-form" placeholder="Наприклад: Айварас Абромавичус; Суддя; Хмельницька область; Державна фіскальна служба" autocomplete="off" value="">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><i class="icon ion-search"></i></button>
+                        </span>
+                    </div>
+                    <a class="ex-search-link" role="button" data-toggle="collapse" href="#collapseExSearch" aria-expanded="false" aria-controls="collapseExSearch">
+                        Розширений пошук
+                    </a>
+                    <div class="collapse in" id="collapseExSearch" >
+                        <div class="row">
+                                <!-- Тип посади -->
+                                <div class="col-sm-6 col col-2">
+                                    <fieldset>
+                                        <legend>Тип посади:</legend>
+                                <span class="form-group">
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" name="post_type" value="державної"><span class="checkbox-material"><span class="check"></span></span>
+                                            <span>Посада державної служби</span></label>
+                                    </div>
+                                </span>
+                                <span class="form-group">
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" name="post_type" value="місцевого"><span class="checkbox-material"><span class="check"></span></span>
+                                            <span>Посада в органах місцевого самоврядування</span></label>
+                                    </div>
+                                </span>
+                                <span class="form-group">
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" name="post_type" value="юридичної"><span class="checkbox-material"><span class="check"></span></span>
+                                            <span>Посадова особа юридичної особи публічного права</span></label>
+                                    </div>
+                                </span>
+                                    </fieldset>
+                                </div>
+
+                                <!-- Регіон -->
+                                <div class="col-sm-6 col col-3">
+                                    <fieldset>
+                                        <legend>Регіон:</legend>
+                                        <div class="dropdown form-group">
+                                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownRegion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" value="">Регіон: <span class="caret"></span></button>
+                                            <ul class="dropdown-menu dropdown-as-select" aria-labelledby="dropdownDocType" data-linked-input="search-field-region">
+                                                <li class="selected"><a href="#" data-value="">Регіон:</a></li>
+                                                <li role="separator" class="divider"></li>
+                                                <li><a href="#" data-value="м. Київ">м. Київ</a></li>
+                                                <li><a href="#" data-value="Вінницька область">Вінницька область</a></li>
+                                                <li><a href="#" data-value="Волинська область">Волинська область</a></li>
+                                                <li><a href="#" data-value="Дніпропетровська область">Дніпропетровська область</a></li>
+                                                <li><a href="#" data-value="Донецька область">Донецька область</a></li>
+                                                <li><a href="#" data-value="Житомирська область">Житомирська область</a></li>
+                                                <li><a href="#" data-value="Закарпатська область">Закарпатська область</a></li>
+                                                <li><a href="#" data-value="Запорізька область">Запорізька область</a></li>
+                                                <li><a href="#" data-value="Івано-Франківська область">Івано-Франківська область</a></li>
+                                                <li><a href="#" data-value="Київська область">Київська область</a></li>
+                                                <li><a href="#" data-value="Кіровоградська область">Кіровоградська область</a></li>
+                                                <li><a href="#" data-value="Львівська область">Львівська область</a></li>
+                                                <li><a href="#" data-value="Луганська область">Луганська область</a></li>
+                                                <li><a href="#" data-value="Миколаївська область">Миколаївська область</a></li>
+                                                <li><a href="#" data-value="Одеська область">Одеська область</a></li>
+                                                <li><a href="#" data-value="Полтавська область">Полтавська область</a></li>
+                                                <li><a href="#" data-value="Рівненська область">Рівненська область</a></li>
+                                                <li><a href="#" data-value="Сумська область">Сумська область</a></li>
+                                                <li><a href="#" data-value="Тернопільська область">Тернопільська область</a></li>
+                                                <li><a href="#" data-value="Харківська область">Харківська область</a></li>
+                                                <li><a href="#" data-value="Херсонська область">Херсонська область</a></li>
+                                                <li><a href="#" data-value="Хмельницька область">Хмельницька область</a></li>
+                                                <li><a href="#" data-value="Черкаська область">Черкаська область</a></li>
+                                                <li><a href="#" data-value="Чернівецька область">Чернівецька область</a></li>
+                                                <li><a href="#" data-value="Чернігівська область">Чернігівська область</a></li>
+                                                <li><a href="#" data-value="Кримська Автономна Республіка">Кримська Автономна Республіка</a></li>
+                                                <li><a href="#" data-value="Севастополь">м. Севастополь</a></li>
+                                            </ul>
+                                        </div>
+                                        <input id="search-field-region" class="linked-input" type="hidden" name="region_value" value="">
+
+                                        <div class="form-group">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="region_type" value="region" id="search-field-region_type-1">
+                                                    <span class="circle"></span>
+                                                    <span class="check"></span>
+                                                    Регіон реєстрації
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="region_type" value="actual_region" id="search-field-region_type-2">
+                                                    <span class="circle"></span>
+                                                    <span class="check"></span>
+                                                    Регіон фактичного приживання
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="region_type" value="estate_region" id="search-field-region_type-3">
+                                                    <span class="circle"></span>
+                                                    <span class="check"></span>
+                                                    Регіон задекларованої нерухомості
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+
+                            </div>
+                        <a id="clear-filters" href="#">Скинути усі фільтри</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>

@@ -1,5 +1,15 @@
 {% extends "base.jinja" %}
 
 {% block content %}
-{{ region }}
+    {% include "_search_form.jinja" %}
+    {{ region.name }}
+
+    {% for office in convocations|groupby('office.name') %}
+        {{ office.grouper }}:
+        {% for conv in office.list %}
+            скликання {{ conv.number }}, {{ conv.year_from }}-{{ conv.year_to }}, Депутатів: {{ conv.num_mps }}, Помічників: {{ conv.num_minions }} <br />
+        {% endfor %}
+    {% endfor %}
+
+    {% include "_search_results.jinja" %}
 {% endblock %}
