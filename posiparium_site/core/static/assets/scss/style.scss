@@ -1,0 +1,21 @@
+@import '../../bower_components/bootstrap/scss/bootstrap';
+@import 'http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css';
+@import 'variables';
+@import 'bootswatch';
+
+@import 'https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap4.min.css';
+
+@import 'custom_variables';
+@import 'utilites/_lists.scss';
+@import 'utilites/mixins';
+
+@import 'typo';
+@import 'base';
+@import 'forms';
+@import 'blocks/nav';
+@import 'blocks/footer';
+@import 'blocks/search-block';
+
+@import 'pages/search';
+@import 'pages/front';
+@import 'pages/profile';

@@ -1,0 +1,5 @@
+<ul>
+{% for convo in convocations %}
+	<li><a href="{{ url('admin:core_convocation_change', convo.id) }}">{{ convo }}</a></li>
+{% endfor %}
+</ul>

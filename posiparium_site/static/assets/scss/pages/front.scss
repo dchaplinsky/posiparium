@@ -1,0 +1,30 @@
+.front {
+  .navbar-nav {
+    justify-content: center;
+  }
+
+  .jumbotron {
+    color: white;
+  }
+
+  .small-search {
+    margin-top: 80px;
+
+    .input-group {
+      border-radius: 5px;
+      border: $minion-red 2px solid;
+      background: white;
+    }
+
+    input,
+    button {
+      border: none;
+      border-radius: 0;
+      background: none;
+    }
+
+    button {
+      color: $minion-red;
+    }
+  }
+}

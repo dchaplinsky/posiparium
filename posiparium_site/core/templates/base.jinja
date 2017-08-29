@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/favicon.ico">
+
+    <title>Posipaky 2</title>
+
+    {% stylesheet 'css_all' %}
+</head>
+
+<body class="front">
+
+    <div id="fb-root"></div>
+    <nav class="navbar navbar-toggleable-md navbar-inverse bg-yellow text-sm-center front-nav">
+        <div class="container">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTop" aria-controls="navbarTop" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarTop">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Головна <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Розширений пошук</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Регіони</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Ще шось</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=137769152977340";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+    {% block content %}
+    {% endblock %}
+
+    <footer id="footer" class="footer footer-static footer-light navbar-border">
+        <div class="footer-container">
+        <div class="row match-height">
+            <div class="col-md-4 col wh100-col">
+                <div class="card">
+                <div class="media wh100">
+                    <div class="media-left">
+                        <a href="https://bihus.info/projects/go-kancelarska-sotna" target="_blank" title="Канцелярська сотня">
+                            <span class="wh100 svg-image logo"><svg preserveAspectRatio="xMidYMid" focusable="false"><use xlink:href="{{ static('assets/images/svg/svg-images-sprite.svg') }}#wh100"></use></svg></span>
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        "Канцелярська сотня" - ініціатива зі створення інформаційних проектів із залученням тисяч волонтерів в інтернеті.
+                        <a class="more-link" href="https://bihus.info/projects/go-kancelarska-sotna" target="_blank" title="Канцелярська сотня">Детальніше</a>
+                    </div>
+                </div>
+                <h4>Інші проекті ГО "Канцелярська сотня":</h4>
+                <div class="media project-list">
+                    <div class="media-left">
+                        <a href="https://declarations.com.ua/" target="_blank" title="Декларації">
+                            <span class="decl svg-image logo"><svg preserveAspectRatio="xMidYMid" focusable="false"><use xlink:href="{{ static('assets/images/svg/svg-images-sprite.svg') }}#decl"></use></svg></span>
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <a href="https://declarations.com.ua/" target="_blank" title="Декларації"><h5 class="media-heading">Декларації</h5></a>
+                        <p>Найбільша база декларацій українських чиновників, з адаптованим повнотекстовим пошуком та аналітичною системою.
+                            <a class="more-link" href="https://bihus.info/projects/deklaracii" target="_blank" title="Декларації">Детальніше</a></p>
+                    </div>
+                </div>
+                <div class="media project-list">
+                    <div class="media-left">
+                        <a href="http://posipaky.info/" target="_blank" title="ПОСІПАКИ">
+                            <span class="posipaky svg-image logo"><svg preserveAspectRatio="xMidYMid" focusable="false"><use xlink:href="{{ static('assets/images/svg/svg-images-sprite.svg') }}#posipaky"></use></svg></span>
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <a href="http://posipaky.info/" target="_blank" title="ПОСІПАКИ"><h5 class="media-heading">ПОСІПАКИ</h5></a>
+                        <p>Відкрита база даних помічників народних депутатів Верховної Ради України, створена з інформації агенції журналістських розслідувань “Слідство.Інфо”.
+                            <a class="more-link" href="https://bihus.info/projects/posipaki" target="_blank" title="ПОСІПАКИ">Детальніше</a></p>
+                    </div>
+                </div>
+                <div class="media project-list">
+                    <div class="media-left">
+                        <a href="https://declarations.com.ua/business-intelligence/" target="_blank" title="НЕВІД (DRAGNET)">
+                            <span class="nevid svg-image logo"><svg preserveAspectRatio="xMidYMid" focusable="false"><use xlink:href="{{ static('assets/images/svg/svg-images-sprite.svg') }}#nevid"></use></svg></span>
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <a href="https://declarations.com.ua/business-intelligence/" target="_blank" title="НЕВІД (DRAGNET)"><h5 class="media-heading">НЕВІД (DRAGNET)</h5></a>
+                        <p>IT-проект «Невід» (Dragnet) - це розробка програмно-аналітичного блоку ініціативи “Декларації”, створеної активістами “Канцелярської сотні” у 2014-му році.
+                            <a class="more-link" href="https://bihus.info/projects/nevid-dragnet" target="_blank" title="НЕВІД (DRAGNET)">Детальніше</a></p>
+
+                    </div>
+                </div>
+                <div class="media project-list">
+                    <div class="media-left">
+                        <a href="https://bihus.info/projects/elektronne-bti-ebti" target="_blank" title="ЕЛЕКТРОННЕ БТІ (ЕБТІ)">
+                            <span class="wh100 svg-image logo"><svg preserveAspectRatio="xMidYMid" focusable="false"><use xlink:href="{{ static('assets/images/svg/svg-images-sprite.svg') }}#wh100"></use></svg></span>
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <a href="https://bihus.info/projects/elektronne-bti-ebti" target="_blank" title="ЕЛЕКТРОННЕ БТІ (ЕБТІ)"><h5 class="media-heading">ЕЛЕКТРОННЕ БТІ (ЕБТІ)</h5></a>
+                        <p>Проект “Електронне БТІ” є продовженням створення серії інструментів, які розширюють доступ до даних про нерухомість.
+                            <a class="more-link" href="https://bihus.info/projects/elektronne-bti-ebti" target="_blank" title="ЕЛЕКТРОННЕ БТІ (ЕБТІ)">Детальніше</a></p>
+                    </div>
+                </div>
+                <div class="media project-list">
+                    <div class="media-left">
+                        <a href="https://garnahata.in.ua/" target="_blank" title="ГАРНАХАТА">
+                            <span class="garnahata svg-image logo"><svg preserveAspectRatio="xMidYMid" focusable="false"><use xlink:href="{{ static('assets/images/svg/svg-images-sprite.svg') }}#garnahata"></use></svg></span>
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <a href="https://garnahata.in.ua/" target="_blank" title="ГАРНАХАТА"><h5 class="media-heading">ГАРНАХАТА</h5></a>
+                        <p>Cтартував одночасно із відкриттям Міністерством юстиції офіційного Реєстру речових прав на нерухоме майно. Простіше кажучи – реєстру нерухомості.
+                            <a class="more-link" href="https://bihus.info/projects/garnahata" target="_blank" title="ГАРНАХАТА">Детальніше</a></p>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-3 col bihus-col">
+                <div class="card">
+                <div class="bihusinfo-subblock">
+                    <a class="footer-logo" href="https://bihus.info/about" target="_blank"><span class="bihus-inverse svg-image logo"><svg preserveAspectRatio="xMidYMid" focusable="false"><use xlink:href="{{ static('assets/images/svg/svg-images-sprite.svg') }}#bihus-inverse"></use></svg></span></a>
+                    <p>Bihus.info об'єднує антикорупційні проекти, які створює ГО "ТОМ 14" та ГО "Канцелярська сотня". <a target="_blank" class="more-link" href="https://bihus.info/about">Детальніше</a></p>
+                </div>
+                <div class="bihusinfo-subblock">
+                    <div class="twitter_button"><a class="twitter-follow-button" href="https://twitter.com/BihusInfo" data-size="large" data-show-count="false">Follow @BihusInfo</a></div>
+                    <div><div class="g-ytsubscribe" data-channel="nashigroshiTV" data-layout="default" data-count="default"></div></div>
+                    <div><div class="fb-follow" data-href="https://www.facebook.com/bihus.info" data-layout="button_count" data-size="large" data-width="154" data-show-faces="true"></div></div>
+                </div>
+                <div class="esputnik-mail bihusinfo-subblock">
+                    <h3>Підпишись на новини</h3>
+                    <iframe frameborder="0" src="https://secure.esputnik.com.ua/23oNbk6320s" width="80%" height="109" scrolling="no"></iframe>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-5 col vol14-col">
+                <div class="card">
+                <div class="media tom14">
+                    <div class="media-left">
+                        <a href="https://bihus.info/projects/go-tom-14" target="_blank" title="ТОМ 14">
+                            <span class="tom14 svg-image logo"><svg preserveAspectRatio="xMidYMid" focusable="false"><use xlink:href="{{ static('assets/images/svg/svg-images-sprite.svg') }}#tom14"></use></svg></span>
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        Громадська організація "ТОМ 14". Центр журналістських розслідувань. <a class="more-link" href="https://bihus.info/projects/go-tom-14" target="_blank" title="ТОМ 14">Детальніше</a>
+                    </div>
+                </div>
+                <h4>Проекти ГО "ТОМ 14":</h4>
+                <div class="media project-list">
+                    <div class="media-left">
+                        <a href="https://www.youtube.com/playlist?list=PLj1W_YfyNdvlgQKoXEIdx3D4eVR4HlAtJ" target="_blank" title='ТЕЛЕПРОГРАМА "НАШІ ГРОШІ"'>
+                            <span class="ng svg-image logo"><svg preserveAspectRatio="xMidYMid" focusable="false"><use xlink:href="{{ static('assets/images/svg/svg-images-sprite.svg') }}#ng"></use></svg></span>
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <a href="https://www.youtube.com/playlist?list=PLj1W_YfyNdvlgQKoXEIdx3D4eVR4HlAtJ" target="_blank" title='ТЕЛЕПРОГРАМА "НАШІ ГРОШІ"'><h5 class="media-heading">ТЕЛЕПРОГРАМА "НАШІ ГРОШІ"</h5></a>
+                        <p>Проект антикорупційних розслідувань "Наші гроші. Головна ідея програми - викриття корупційних схем українських чиновників.
+                            <a class="more-link" href="https://bihus.info/projects/teleprograma-nasi-grosi" target="_blank" title='ТЕЛЕПРОГРАМА "НАШІ ГРОШІ"'>Детальніше</a></p>
+                    </div>
+                </div>
+                <div class="media project-list">
+                    <div class="media-left">
+                        <a href="https://bihus.info/projects/push" target="_blank" title="ТИСНИ!">
+                            <span class="push svg-image logo"><svg preserveAspectRatio="xMidYMid" focusable="false"><use xlink:href="{{ static('assets/images/svg/svg-images-sprite.svg') }}#push"></use></svg></span>
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <a href="https://bihus.info/projects/push" target="_blank" title="ТИСНИ!"><h5 class="media-heading">ТИСНИ!</h5></a>
+                        <p>Юридична ініціатива ГО "ТОМ 14", спрямована на підтримку роботи журналістів після виходу розслідувань.
+                            <a class="more-link" href="https://bihus.info/projects/push" target="_blank" title="ТИСНИ!">Детальніше</a></p>
+                    </div>
+                </div>
+                <div class="media project-list">
+                    <div class="media-left">
+                        <a href="https://www.youtube.com/playlist?list=PLj1W_YfyNdvmEDcNS9pAVpfBs8DKYCkvv" target="_blank" title="ПІДСУМКИ ДНА">
+                            <span class="dno svg-image logo"><svg preserveAspectRatio="xMidYMid" focusable="false"><use xlink:href="{{ static('assets/images/svg/svg-images-sprite.svg') }}#dno"></use></svg></span>
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <a href="https://www.youtube.com/playlist?list=PLj1W_YfyNdvmEDcNS9pAVpfBs8DKYCkvv" target="_blank" title="ПІДСУМКИ ДНА"><h5 class="media-heading">ПІДСУМКИ ДНА</h5></a>
+                        <p>Чесна та відверта програма про наше сьогодення. Хіба що трохи занадто емоційна. В форматі 5 хвилин говоримо на актуальні теми.
+                            <a class="more-link" href="https://bihus.info/projects/pidsumki-dna" target="_blank" title="ПІДСУМКИ ДНА">Детальніше</a></p>
+                    </div>
+                </div>
+                <div class="media project-list">
+                    <div class="media-left">
+                        <a href="https://bihus.info/projects/narodne-nazk" target="_blank" title="НАРОДНЕ НАЗК">
+                            <span class="pnazk svg-image logo"><svg preserveAspectRatio="xMidYMid" focusable="false"><use xlink:href="{{ static('assets/images/svg/svg-images-sprite.svg') }}#pnazk"></use></svg></span>
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <a href="https://bihus.info/projects/narodne-nazk" target="_blank" title="НАРОДНЕ НАЗК"><h5 class="media-heading">НАРОДНЕ НАЗК</h5></a>
+                        <p>Розслідувально-аналітичний проект ГО “ТОМ 14”. Стартував одразу після оприлюднення перших електронних декларацій.
+                            <a class="more-link" href="https://bihus.info/projects/narodne-nazk" target="_blank" title="НАРОДНЕ НАЗК">Детальніше</a></p>
+                    </div>
+                </div>
+                <div class="media project-list">
+                    <div class="media-left">
+                        <a href="https://www.youtube.com/watch?v=pn7sKSGRFgs&list=PLj1W_YfyNdvlHBH2PRbNw7BWacrG35uTl" target="_blank" title="НАШІ ГРОШІ. ДОСУДИЛИСЯ.">
+                            <span class="dosud svg-image logo"><svg preserveAspectRatio="xMidYMid" focusable="false"><use xlink:href="{{ static('assets/images/svg/svg-images-sprite.svg') }}#dosud"></use></svg></span>
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <a href="https://www.youtube.com/watch?v=pn7sKSGRFgs&list=PLj1W_YfyNdvlHBH2PRbNw7BWacrG35uTl" target="_blank" title="НАШІ ГРОШІ. ДОСУДИЛИСЯ."><h5 class="media-heading">НАШІ ГРОШІ. ДОСУДИЛИСЯ.</h5></a>
+                        <p>Телевезійний спецпроект про суди, суддів і судову реформу. За півроку «Досудилися» опублікували понад два десятки телерозслідувань.
+                            <a class="more-link" href="https://bihus.info/projects/nasi-grosi-dosudilisa" target="_blank" title="НАШІ ГРОШІ. ДОСУДИЛИСЯ.">Детальніше</a></p>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </footer>
+
+    {% javascript 'js_all' %}
+
+    <script>window.twttr = (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0],
+                t = window.twttr || {};
+        if (d.getElementById(id)) return t;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
+
+        t._e = [];
+        t.ready = function(f) {
+            t._e.push(f);
+        };
+
+        return t;
+    }(document, "script", "twitter-wjs"));</script>
+
+    <script src="https://apis.google.com/js/platform.js"></script>
+    <script>
+        function onYtEvent(payload) {
+            if (payload.eventType == 'subscribe') {
+                // Add code to handle subscribe event.
+            } else if (payload.eventType == 'unsubscribe') {
+                // Add code to handle unsubscribe event.
+            }
+            if (window.console) { // for debugging only
+                window.console.log('YT event: ', payload);
+            }
+        }
+    </script>
+</body>
+</html>
