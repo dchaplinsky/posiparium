@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'pipeline',
+    'django_jinja.contrib._easy_thumbnails',
+    'easy_thumbnails',
     'core',
+    'raven.contrib.django.raven_compat',
 ]
 
 MIDDLEWARE = [
@@ -205,6 +208,12 @@ TEMPLATES = [
 ]
 
 CATALOG_PER_PAGE = 30
+
+THUMBNAIL_ALIASES = {
+    '': {
+        'avatar': {'size': (187, 187), 'crop': ",0", 'upscale': True},
+    },
+}
 
 try:
     from .local_settings import *

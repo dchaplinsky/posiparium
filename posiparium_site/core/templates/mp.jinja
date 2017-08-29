@@ -49,12 +49,9 @@
     <section class="jumbotron bg-yellow">
         <div class="container">
             <div class="media">
-                <img class="d-flex align-self-center mr-3 rounded-circle" src="http://posipaky.info/media/Pieriedierii_Vyacheslav_Hryhorovych.jpg.179x179_q85_crop-%2C0_upscale.jpg" alt="{{ mp.name }}">
+                <img class="d-flex align-self-center mr-3 rounded-circle" src="{{ mp.img|thumbnail_url("avatar") }}" alt="{{ mp.name }}">
                 <div class="media-body align-self-center">
                     <h1 class="mt-0 mb-3">{{ mp.name }}</h1>
-                    {% if mp.link %}
-                    <p class="mb-0"><a class="find_viki" href="{{ mp.link }}" target="_blank">Офіційна сторінка</a></p>
-                    {% endif %}
                 </div>
             </div>
         </div>
@@ -65,7 +62,7 @@
             <span itemprop="name" class="hide">{{ mp.name }}</span>
             <span itemprop="jobTitle" class="hide">Депутат</span>
             <link itemprop="url" href="{{ mp.get_absolute_url() }}">
-            <link itemprop="image" href="./Pieriedierii_Vyacheslav_Hryhorovych.jpg">
+            <link itemprop="image" href="{{ mp.img|thumbnail_url("avatar") }}">
 
             <ul class="nav nav-tabs" role="tablist">
                 {% for convo in mp.mp2convocation_set.all() %}
@@ -83,6 +80,9 @@
                         {% if convo.party %}<p itemprop="name"><span class="f_left">Партія</span> {{ convo.party }}</p>{% endif %}
                         {% if convo.fraction %}<p><span class="f_left">Фракція</span> {{ convo.fraction }}</p>{% endif %}
                         {% if convo.comission %}<p><span class="f_left">Комісія</span> {{ convo.comission }}</p>{% endif %}
+                        {% if convo.link %}
+                        <p><a class="find_viki" href="{{ convo.link }}" target="_blank">Офіційна сторінка</a></p>
+                        {% endif %}
                         <p><span class="f_left">Період</span> з {{ convocation.year_from }} по {{ convocation.year_to }}</p>
                     </div>
 

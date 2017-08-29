@@ -1,9 +1,11 @@
 import os
 import fnmatch
 import re
+import requests
 from openpyxl import load_workbook
-from dateutil.parser import parse as dt_parse
-from django.core.management.base import BaseCommand, CommandError
+from translitua import translitua
+from django.core.files.base import ContentFile
+from django.core.management.base import BaseCommand
 
 from core.models import (
     County, PublicOffice, Convocation,
@@ -130,6 +132,23 @@ class Command(BaseCommand):
                             self.stdout.write(
                                 "Reused one mp {}, {}, {}".format(
                                     file, mp_name, office))
+
+                        if photo and not mp_model.img:
+                            resp = requests.get(photo)
+
+                            if resp.status_code != 200:
+                                self.stderr.write("Cannot download image %s for %s" % (
+                                    photo,
+                                    mp_model.name
+                                ))
+                                continue
+
+                            mp_model.img.save(
+                                translitua(mp_model.name) + ".jpg", ContentFile(resp.content))
+
+                            mp_model.save()
+                        else:
+                            self.stdout.write("Image for %s already exists" % mp_model.name)
 
                         mp2conv_model, _ = MP2Convocation.objects.get_or_create(
                             mp=mp_model,
