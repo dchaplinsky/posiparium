@@ -10,6 +10,10 @@ class Minion(DocType):
         index=True, analyzer='ukrainian',
         fields={'raw': Keyword(index=True)}
     )
+
+    body = Keyword(index=True)
+    region = Keyword(index=True)
+
     mp = Object(
         properties={
             "grouper": Keyword(index=False),

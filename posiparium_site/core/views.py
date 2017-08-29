@@ -3,6 +3,7 @@ from collections import Counter
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Count
+from django.forms.models import model_to_dict
 
 from core.elastic_models import Minion as ElasticMinion
 from core.models import (
@@ -106,6 +107,27 @@ def home(request):
     })
 
 
+def home_stats(request):
+    regions = County.objects.order_by("name").annotate(
+        num_mps=Count('publicoffice__convocation__mp2convocation', distinct=True),
+        num_minions=Count('publicoffice__convocation__mp2convocation__minion'))
+
+    return JsonResponse(
+        [
+            {
+                "name": r.name,
+                "slug": r.slug,
+                "url": r.get_absolute_url(),
+                "num_mps": r.num_mps,
+                "num_minions": r.num_minions
+            }
+
+            for r in regions
+        ],
+        safe=False
+    )
+
+
 def county(request, county_slug):
     region = get_object_or_404(County, slug=county_slug)
 
@@ -121,5 +143,32 @@ def county(request, county_slug):
         ),
 
         "search_results": paginated(
-            request, results.sort('mp.grouper', 'name.raw'), cnt=30),
+            request, results.sort(
+                'body', 'region', 'mp.grouper', 'name.raw'), cnt=30),
+    })
+
+
+def search(request):
+    query = request.GET.get("q", "")
+
+    if query:
+        results = ElasticMinion.search().query(
+            "multi_match", query=query,
+            operator="and",
+            fields=["mp.name", "name"])
+    else:
+        results = ElasticMinion.search().query('match_all')
+
+    return render(request, "search.jinja", {
+        "search_results": paginated(
+            request, results.sort(
+                'body', 'region', 'mp.grouper', 'name.raw'), cnt=30),
+    })
+
+
+def mp(request, mp_id):
+    mp = get_object_or_404(MemberOfParliament, pk=mp_id)
+
+    return render(request, "mp.jinja", {
+        "mp": mp
     })

@@ -107,6 +107,9 @@ class MemberOfParliament(models.Model):
     def __str__(self):
         return self.__unicode__()
 
+    def get_absolute_url(self):
+        return reverse("mp_details", kwargs={"mp_id": self.pk})
+
     class Meta:
         verbose_name = "Депутат"
         verbose_name_plural = "Депутати"
@@ -154,7 +157,7 @@ class Minion2MP2Convocation(models.Model):
         """
         Convert Minion model to an indexable presentation for ES.
         """
-        d = {}
+        d = model_to_dict(self, fields=["confirmed"])
 
         d["mp"] = self.mp2convocation.to_dict()
         d["convocation"] = self.mp2convocation.convocation.number

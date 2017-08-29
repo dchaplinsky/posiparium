@@ -1,7 +1,7 @@
     <section class="jumbotron bg-yellow">
         <div class="container">
             <div id="ex-search-form">
-                <form class="box" action="/search" method="GET" id="ex-form">
+                <form class="box" action="{{ url('search') }}" method="GET" id="ex-form">
                     <div class="input-group search-string">
                         <input type="text" name="q" class="form-control search-name" id="search-form" placeholder="Наприклад: Айварас Абромавичус; Суддя; Хмельницька область; Державна фіскальна служба" autocomplete="off" value="">
                         <span class="input-group-btn">

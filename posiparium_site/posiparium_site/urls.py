@@ -6,8 +6,11 @@ from django.conf.urls.static import static
 from core import views as core_views
 
 urlpatterns = [
-    url(r'^ajax/suggest$', core_views.suggest, name='suggest'),
     url(r'^$', core_views.home, name='home'),
+    url(r'^home_stats$', core_views.home_stats, name='home_stats'),
+    url(r'^ajax/suggest$', core_views.suggest, name='suggest'),
+    url(r'^search$', core_views.search, name='search'),
+    url(r'^mp/(?P<mp_id>\d+)$', core_views.mp, name='mp_details'),
     url(r'^(?P<county_slug>\w+)$', core_views.county, name='county'),
 
     url(r'^admin/', admin.site.urls),

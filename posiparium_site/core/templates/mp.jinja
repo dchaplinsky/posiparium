@@ -1,0 +1,176 @@
+{% extends "base.jinja" %}
+
+{% block body_class %}profile-page{% endblock %}
+
+{% block navigation %}
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTop" aria-controls="navbarTop" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#">Posiparium</a>
+
+    <div class="collapse navbar-collapse" id="navbarTop">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Головна</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/">Розширений пошук <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/">Регіони</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/">Ще шось</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link inner-search-button" href="#"><i class="icon ion-ios-search-strong"></i></a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="float-search">
+        <div class="small-search container">
+            <div class="searchbox">
+                <form action="{{ url('search') }}" method="GET">
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control search-name" placeholder="Знайти посiпаку...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-secondary" type="button"><i class="icon ion-search"></i></button>
+                        </span>
+                    </div>
+                </form>
+                <a class="ex-search-link" href="/search.html#exsearch">Розширений пошук</a>
+            </div>
+        </div>
+    </div>
+
+    <section class="jumbotron bg-yellow">
+        <div class="container">
+            <div class="media">
+                <img class="d-flex align-self-center mr-3 rounded-circle" src="http://posipaky.info/media/Pieriedierii_Vyacheslav_Hryhorovych.jpg.179x179_q85_crop-%2C0_upscale.jpg" alt="{{ mp.name }}">
+                <div class="media-body align-self-center">
+                    <h1 class="mt-0 mb-3">{{ mp.name }}</h1>
+                    {% if mp.link %}
+                    <p class="mb-0"><a class="find_viki" href="{{ mp.link }}" target="_blank">Офіційна сторінка</a></p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="profile">
+        <div class="container" itemscope="" itemtype="http://schema.org/Person">
+            <span itemprop="name" class="hide">{{ mp.name }}</span>
+            <span itemprop="jobTitle" class="hide">Депутат</span>
+            <link itemprop="url" href="{{ mp.get_absolute_url() }}">
+            <link itemprop="image" href="./Pieriedierii_Vyacheslav_Hryhorovych.jpg">
+
+            <ul class="nav nav-tabs" role="tablist">
+                {% for convo in mp.mp2convocation_set.all() %}
+                <li class="nav-item">
+                    <a class="nav-link active" href="#conv_{{ convo.pk }}" role="tab" data-toggle="tab">{{ convo.convocation.number }} скликання, {{ convo.convocation.office.name }} </a>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <div class="tab-content">
+                {% for convo in mp.mp2convocation_set.all() %}
+                {% set convocation = convo.convocation %}
+                <div role="tabpanel" class="tab-pane fade show active" id="{{ convo.pk }}">
+                    <div class="top_block main_information cf" itemscope="" itemtype="http://schema.org/Organization" itemprop="memberOf">
+                        {% if convo.party %}<p itemprop="name"><span class="f_left">Партія</span> {{ convo.party }}</p>{% endif %}
+                        {% if convo.fraction %}<p><span class="f_left">Фракція</span> {{ convo.fraction }}</p>{% endif %}
+                        {% if convo.comission %}<p><span class="f_left">Комісія</span> {{ convo.comission }}</p>{% endif %}
+                        <p><span class="f_left">Період</span> з {{ convocation.year_from }} по {{ convocation.year_to }}</p>
+                    </div>
+
+                    <div class="bottom_block list_persons cf">
+                        <div class="person_count">
+                            {% set minions_count = convo.minion2mp2convocation_set.count() %}
+                            <p>{{ minions_count }} {{ minions_count|uk_plural("помічник,помічника,помічників") }}</p>
+
+                        </div>
+                        <div class="wrap_block cf">
+                            {% for minion_link in convo.minion2mp2convocation_set.all() %}
+                                <h2 itemprop="name">{{ minion_link.minion.name }}</h2>
+                                <span itemprop="jobTitle" class="hide">Помічник депутата</span>
+                                {% if minion_link.confirmed %}
+                                    <span class="radius yellow">{{ minion_link.confirmed|format_date }}</span>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myLargeModal">Був помiчником у депутатiв</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="block_wrap block_row cf">
+
+                        <div class="col-md-12" itemscope="" itemtype="http://schema.org/Person" itemprop="knows">
+                            <div class="col-md-6">
+                                <p><a href="/mp/9861" itemprop="url"><span itemprop="name">Ляшко Олег Валерійович</span></a>
+                                    <span itemprop="jobTitle" class="hide">Депутат</span></p>
+                            </div>
+                            <div class="col-md-6" itemscope="" itemtype="http://schema.org/Organization" itemprop="worksFor">
+                                <p><span itemprop="name">Блок Юлії Тимошенко</span>, <a href="/convocation/5">5 скликання</a></p>
+                                <span class="circle blue" title="На платній основі"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12" itemscope="" itemtype="http://schema.org/Person" itemprop="knows">
+                            <div class="col-md-6">
+                                <p><a href="/mp/9895" itemprop="url"><span itemprop="name">Пєрєдєрій В'ячеслав Григорович</span></a>
+                                    <span itemprop="jobTitle" class="hide">Депутат</span></p>
+                            </div>
+                            <div class="col-md-6" itemscope="" itemtype="http://schema.org/Organization" itemprop="worksFor">
+                                <p><span itemprop="name">Блок Юлії Тимошенко</span>, <a href="/convocation/5">5 скликання</a></p>
+                                <span class="circle blue" title="На платній основі"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12" itemscope="" itemtype="http://schema.org/Person" itemprop="knows">
+                            <div class="col-md-6">
+                                <p><a href="/mp/9579" itemprop="url"><span itemprop="name">Семинога Анатолій Іванович</span></a>
+                                    <span itemprop="jobTitle" class="hide">Депутат</span></p>
+                            </div>
+                            <div class="col-md-6" itemscope="" itemtype="http://schema.org/Organization" itemprop="worksFor">
+                                <p><span itemprop="name">Блок Юлії Тимошенко</span>, <a href="/convocation/6">6 скликання</a></p>
+                                <span class="circle blue" title="На платній основі"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12" itemscope="" itemtype="http://schema.org/Person" itemprop="knows">
+                            <div class="col-md-6">
+                                <p><a href="/mp/9579" itemprop="url"><span itemprop="name">Семинога Анатолій Іванович</span></a>
+                                    <span itemprop="jobTitle" class="hide">Депутат</span></p>
+                            </div>
+                            <div class="col-md-6" itemscope="" itemtype="http://schema.org/Organization" itemprop="worksFor">
+                                <p><span itemprop="name">Блок Юлії Тимошенко</span>, <a href="/convocation/6">6 скликання</a></p>
+                                <span class="circle yellow" title="На громадських засадах"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

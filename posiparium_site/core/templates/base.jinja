@@ -12,11 +12,11 @@
     {% stylesheet 'css_all' %}
 </head>
 
-<body class="front">
-
+<body class="{% block body_class %}front{% endblock %}">
     <div id="fb-root"></div>
     <nav class="navbar navbar-toggleable-md navbar-inverse bg-yellow text-sm-center front-nav">
         <div class="container">
+        {% block navigation %}
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTop" aria-controls="navbarTop" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -37,6 +37,7 @@
                     </li>
                 </ul>
             </div>
+        {% endblock %}
         </div>
     </nav>
 
