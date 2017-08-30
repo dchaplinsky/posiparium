@@ -1,0 +1,128 @@
+.small-profile {
+  float: left;
+
+  .box {
+    padding: 15px;
+    position: relative;
+
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      z-index: 0;
+      width: 100%;
+      height: 50px;
+      left: 0;
+      top: 0;
+      @include blueGradient();
+    }
+
+    &:hover {
+      box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.23), inset 0 3px 10px rgba(0, 0, 0, 0.16);
+      cursor: pointer;
+    }
+  }
+
+  .profile-header {
+    position: relative;
+    z-index: 1;
+  }
+
+  $w: 100px;
+
+  .avatar {
+    float: left;
+    display: block;
+    height: $w;
+    width: $w;
+
+    img {
+      height: $w;
+      width: auto;
+    }
+
+    &.no-foto {
+      position: relative;
+      background: #eceeef;
+
+      &:after {
+        content: "\f3a0";
+        font-family: "Ionicons";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0.5;
+        font-size: 100px;
+      }
+    }
+  }
+
+  .name,
+  .descr {
+    margin-left: $w + 20px;
+  }
+
+  .name {
+    color: #FFFFFF;
+    margin-top: 10px;
+    font-weight: normal;
+    font-size: 24px;
+    text-transform: uppercase;
+
+    .pib {
+      font-size: 20px;
+      display: block;
+      text-transform: none;
+      color: $text;
+    }
+  }
+
+  .descr {
+    margin-left: 120px;
+    position: relative;
+    display: block;
+
+    span {
+      font-weight: bold;
+    }
+
+    p {
+      margin-bottom: 0;
+    }
+
+    span.small-tip {
+      font-size: 12px;
+      margin-left: -45px;
+      color: #7B7B7B;
+    }
+  }
+
+  .posipaky {
+    > div > span {
+      font-weight: bold;
+    }
+  }
+
+  &.open {
+    position: absolute;
+    z-index: 11;
+
+    .posipaky {
+      .link_nb {
+        &.hidden {
+          display: block;
+        }
+      }
+
+      .show-more {
+        display: none;
+      }
+    }
+
+    + .small-profile {
+      margin-left: 50%;
+    }
+
+  }
+}

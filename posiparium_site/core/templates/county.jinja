@@ -1,15 +1,23 @@
 {% extends "base.jinja" %}
+{% block body_class %}not-front county-page{% endblock %}
 
 {% block content %}
-    {% include "_search_form.jinja" %}
-    {{ region.name }}
+    <section class="jumbotron bg-yellow pb-1 pt-4">
+        <div class="container">
+            <h1>{{ region.name }}</h1>
 
-    {% for office in convocations|groupby('office.name') %}
-        {{ office.grouper }}:
-        {% for conv in office.list %}
-            скликання {{ conv.number }}, {{ conv.year_from }}-{{ conv.year_to }}, Депутатів: {{ conv.num_mps }}, Помічників: {{ conv.num_minions }} <br />
-        {% endfor %}
-    {% endfor %}
+            {% include "_search_form.jinja" %}
+
+            <div class="county-header">
+                {% for office in convocations|groupby('office.name') %}
+                    <h2>{{ office.grouper }}:</h2>
+                    {% for conv in office.list %}
+                        <p>скликання {{ conv.number }}, {{ conv.year_from }}-{{ conv.year_to }}, Депутатів: {{ conv.num_mps }}, Помічників: {{ conv.num_minions }} </p>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
 
     {% include "_search_results.jinja" %}
 {% endblock %}

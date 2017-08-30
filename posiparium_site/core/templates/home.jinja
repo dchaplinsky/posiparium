@@ -1,7 +1,9 @@
 {% extends "base.jinja" %}
 
+{% block body_class %}front{% endblock %}
+
 {% block content %}
-    <section class="jumbotron bg-yellow pb-1">
+    <section class="jumbotron bg-yellow pb-1 pt-4">
         <div class="container">
             <div class="intro text-sm-center">
                 <h1>Posiparium</h1>
@@ -9,23 +11,11 @@
                 <p class="small">Відкрита база даних помічників народних депутатів України створена на основі офіційної інформації Апарату Верховної Ради України.</p>
             </div>
 
-            <div class="small-search">
-                <div class="searchbox">
-                    <form action="{{ url('search') }}" method="GET">
-                        <div class="input-group">
-                            <input type="text" name="q" class="form-control search-name" placeholder="Знайти посiпаку...">
-                            <span class="input-group-btn">
-                                <button class="btn btn-secondary" type="button"><i class="icon ion-search"></i></button>
-                            </span>
-                        </div>
-                    </form>
-                    <a class="ex-search-link" href="/search.html#exsearch">Розширений пошук</a>
-                </div>
-            </div>
+            {% include "_search_form.jinja" %}
 
             <ul class="stats text-sm-center mt-4">
-                <li>{{ count_of_minions }} <span>помічників</span></li>
-                <li>{{ count_of_mps }} <span>депутатів</span></li>
+                <li><span class="count">{{ count_of_minions }}</span> <span>помічників</span></li>
+                <li><span class="count">{{ count_of_mps }}</span> <span>депутатів</span></li>
             </ul>
 
         </div>
@@ -33,7 +23,7 @@
 
     <section class="map" id="ua-map">
         <div class="container">
-
+            <h5 class="text-sm-center">По регіонам</h5>
             {% include "_svg_map.jinja" %}
 
             <table id="ua-map-table" class="table table-striped table-bordered dataTable"></table>

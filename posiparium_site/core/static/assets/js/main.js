@@ -132,6 +132,8 @@ document.addEventListener(
     }
 
     function populateUaMap() {
+        console.log('run map');
+
         var $container = $('#ua-map .svg-image'),
             json = $container.data('json'),
             $svgPaths = $container.find('svg path');
@@ -144,11 +146,10 @@ document.addEventListener(
                         id = $this.attr('id'),
                         skip = $this.data('skip');
 
-                    $this.addClass('popover-dismiss').css('cursor', 'pointer');
-
                     for(var i=0; i< data.length; i++) {
                         if (id == data[i].slug && skip !== 1) {
                             $this.attr('data-oblast', data[i].name ).attr('data-pep', data[i].num_mps ).attr('data-posipak', data[i].num_minions ).attr('data-url', data[i].url );
+                            $this.addClass('popover-dismiss').css('cursor', 'pointer');
                         }
                     }
 
@@ -223,17 +224,19 @@ document.addEventListener(
                     }]
                 });
 
+                $('#ua-map svg path[data-oblast][data-oblast!=""]').on({
+                    mouseenter: function () {
+                        $(this).attr('fill', '#f5b351');
+                    },
+                    mouseleave: function () {
+                        $(this).attr('fill', '#ffffff');
+                    }
+                });
             });
     }
 
     $(document).on('show.bs.popover', function() {
         $('.popover').not(this).popover('hide');
-    });
-
-    $('#ua-map svg path[data-oblast][data-oblast!=""]').mouseenter(function() {
-        $(this).attr('fill', '#f5b351');
-    }).mouseleave(function() {
-        $(this).attr('fill', '#ffffff');
     });
 
     function wrapPosipakyList() {
@@ -273,7 +276,9 @@ document.addEventListener(
 
 
     $(document).ready(function() {
-        populateUaMap();
+        if ($('.map').length > 0) {
+            populateUaMap();
+        }
 
         setExFormStateFromUrl();
         setDropdownsValue();
