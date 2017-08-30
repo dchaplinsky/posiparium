@@ -1,7 +1,7 @@
 {% extends "base.jinja" %}
 
 {% block content %}
-    <section class="jumbotron bg-yellow">
+    <section class="jumbotron bg-yellow pb-1">
         <div class="container">
             <div class="intro text-sm-center">
                 <h1>Posiparium</h1>
@@ -23,13 +23,16 @@
                 </div>
             </div>
 
+            <ul class="stats text-sm-center mt-4">
+                <li>{{ count_of_minions }} <span>помічників</span></li>
+                <li>{{ count_of_mps }} <span>депутатів</span></li>
+            </ul>
+
         </div>
     </section>
 
     <section class="map" id="ua-map">
         <div class="container">
-            <h2>Всього помічників: {{ count_of_minions }}</h2>
-            <h3>Всього депутатів: {{ count_of_mps }}</h3>
 
             {% include "_svg_map.jinja" %}
 

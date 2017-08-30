@@ -230,7 +230,7 @@ document.addEventListener(
         $('.popover').not(this).popover('hide');
     });
 
-    $('#ua-map svg path[data-oblast]').mouseenter(function() {
+    $('#ua-map svg path[data-oblast][data-oblast!=""]').mouseenter(function() {
         $(this).attr('fill', '#f5b351');
     }).mouseleave(function() {
         $(this).attr('fill', '#ffffff');

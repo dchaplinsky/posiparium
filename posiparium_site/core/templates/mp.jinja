@@ -49,7 +49,11 @@
     <section class="jumbotron bg-yellow">
         <div class="container">
             <div class="media">
-                <img class="d-flex align-self-center mr-3 rounded-circle" src="{{ mp.img|thumbnail_url("avatar") }}" alt="{{ mp.name }}">
+                {% if mp.img %}
+                    <img class="d-flex align-self-center mr-3 rounded-circle" src="{{ mp.img|thumbnail_url("avatar") }}" alt="{{ mp.name }}">
+                {% else %}
+                    <div class="no-foto d-flex align-self-center mr-3 rounded-circle"></div>
+                {% endif %}
                 <div class="media-body align-self-center">
                     <h1 class="mt-0 mb-3">{{ mp.name }}</h1>
                 </div>
