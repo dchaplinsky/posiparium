@@ -135,7 +135,7 @@ class MP2Convocation(models.Model):
 
         m["convocation"] = self.convocation_id
         m["name"] = self.mp.name
-        m["link"] = self.mp.link
+        m["link"] = self.link
         m["id"] = self.mp.id
         m["grouper"] = "%s %s" % (self.convocation_id, self.mp.name)
 
