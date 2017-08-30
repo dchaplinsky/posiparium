@@ -24,8 +24,16 @@
 
             <div class="collapse navbar-collapse" id="navbarTop">
                 <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownR" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Регіони</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownR">
+                            {% for region in regions %}
+                                <a class="dropdown-item" href="{{ region.get_absolute_url() }}">{{ region.name }}</a>
+                            {% endfor %}
+                        </div>
+                    </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/">Регіони</a>
+                        <a class="nav-link" href="#">Ще шось</a>
                     </li>
                 </ul>
             </div>
