@@ -16,6 +16,23 @@
       z-index: 10;
     }
   }
+
+  .jumbotron {
+    color: white;
+  }
+}
+
+.search-grouper-title {
+  background: $decl-green;
+  color: white;
+  padding: 20px 40px;
+  margin-bottom: 0;
+  font-size: 1.5rem;
+
+  &.body-grouper {
+    font-size: 1.25rem;
+    padding: 10px 40px;
+  }
 }
 
 .search-results {
@@ -25,34 +42,24 @@
     margin-top: 10px;
     margin-bottom: 40px;
 
+    &:first-of-type {
+      margin-top: 40px;
+    }
+
     .box {
       height: 100%;
+      background: none repeat scroll 0 0 #fff;
+      border: 0 none;
+      border-radius: 2px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16);
+      padding: 30px;
     }
   }
 }
 
-/*
-.toggle-view {
-    @media(max-width: 767px) {
-        display: none;
-    }
+.county-page {
+  .jumbotron {
+    color: white;
+  }
 }
 
-.toggle-search {
-    @media(min-width: 768px) {
-        float: right;
-    }
-
-    #sort-date {
-        border-left: $line 1px solid;
-        border-right: $line 1px solid;
-    }
-
-    > span {
-        text-transform: uppercase;
-        font-size: 11px;
-        font-weight: bold;
-        margin-right: 5px;
-    }
-}
-*/

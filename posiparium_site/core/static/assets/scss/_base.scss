@@ -114,3 +114,7 @@
 .link_nb span.yellow  {
   background: $decl-green;
 }
+
+.popover-title {
+  @include blueGradient();
+}

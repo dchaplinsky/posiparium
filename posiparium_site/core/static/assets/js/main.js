@@ -132,12 +132,54 @@ document.addEventListener(
     }
 
     function populateUaMap() {
+        console.log('run map');
+
         var $container = $('#ua-map .svg-image'),
             json = $container.data('json'),
             $svgPaths = $container.find('svg path');
 
         $.getJSON( json, {format: "json"})
             .done(function( data ) {
+
+                $svgPaths.each(function( index ) {
+                    var $this = $(this),
+                        id = $this.attr('id'),
+                        skip = $this.data('skip');
+
+                    for(var i=0; i< data.length; i++) {
+                        if (id == data[i].slug && skip !== 1) {
+                            $this.attr('data-oblast', data[i].name ).attr('data-pep', data[i].num_mps ).attr('data-posipak', data[i].num_minions ).attr('data-url', data[i].url );
+                            $this.addClass('popover-dismiss').css('cursor', 'pointer');
+                        }
+                    }
+
+                    if (skip !== 1) {
+                        $('.popover-dismiss').popover({
+                            //trigger: 'hover',
+                            html: true,
+                            placement: 'top',
+                            container: 'body',
+                            animation: false,
+                            title: function() {
+                                var popoverHTML = $(this).data('oblast');
+                                return popoverHTML;
+                            },
+                            content: function() {
+                                var popoverHTML = '<a href="' + $(this).data('url') + '">' +
+                                    '<p>Депутатів: ' +  $(this).data('pep') + '</p>'
+                                    +  '<p>Помічників: ' +  $(this).data('posipak')  + '</p>'
+                                    + '</a>' ;
+
+                                return popoverHTML;
+                            }
+                        });
+                    }
+
+                });
+
+                for(var i=0; i<data.length; i++) {
+                    data[i].name = '<a href="' + data[i].url + '">' + data[i].name + '</a>';
+                }
 
                 $('#ua-map-table').dataTable({
                     "responsive": true,
@@ -171,68 +213,30 @@ document.addEventListener(
                     "pagingType": "simple",
                     "aaData": data,
                     "aoColumns": [{
-                        "mDataProp": "id",
-                        "sTitle":"id"
-                    }, {
-                        "mDataProp": "oblast",
+                        "mDataProp": "name",
                         "sTitle":"Область"
                     }, {
-                        "mDataProp": "pep",
-                        "sTitle":"Пепів"
+                        "mDataProp": "num_mps",
+                        "sTitle":"Депутатів"
                     }, {
-                        "mDataProp": "posipak",
-                        "sTitle":"Посіпак"
-                    }, {
-                        "mDataProp": "something",
-                        "sTitle":"Ще шось"
+                        "mDataProp": "num_minions",
+                        "sTitle":"Помічників"
                     }]
                 });
 
-                $svgPaths.each(function( index ) {
-                    var $this = $(this),
-                        id = $this.attr('id');
-
-                    $this.addClass('popover-dismiss').css('cursor', 'pointer');
-
-                    for(var i=0; i< data.length; i++) {
-                        if (id == data[i].oblast) {
-                            $this.attr('data-oblast', data[i].oblast ).attr('data-pep', data[i].pep ).attr('data-posipak', data[i].posipak ).attr('data-oid', data[i].id ).attr('data-something', data[i].something );
-                        }
+                $('#ua-map svg path[data-oblast][data-oblast!=""]').on({
+                    mouseenter: function () {
+                        $(this).attr('fill', '#f5b351');
+                    },
+                    mouseleave: function () {
+                        $(this).attr('fill', '#ffffff');
                     }
-
-                    $('.popover-dismiss').popover({
-                        //trigger: 'hover',
-                        html: true,
-                        placement: 'top',
-                        container: 'body',
-                        animation: false,
-                        title: function() {
-                            var popoverHTML = $(this).data('oblast');
-                            return popoverHTML;
-                        },
-                        content: function() {
-                            var popoverHTML = '<a href="/region/' + $(this).data('oid') + '">' +
-                                '<p>Пепів: ' +  $(this).data('pep') + '</p>'
-                                +  '<p>Посіпак: ' +  $(this).data('posipak')  + '</p>'
-                                +  '<p>Ще шось: ' +  $(this).data('something')  + '</p>'
-                                + '</a>' ;
-
-                            return popoverHTML;
-                        }
-                    });
                 });
             });
     }
 
     $(document).on('show.bs.popover', function() {
         $('.popover').not(this).popover('hide');
-    });
-
-    //todo
-    $('#ua-map svg path').mouseenter(function() {
-        $(this).attr('fill', '#ccc');
-    }).mouseleave(function() {
-        $(this).attr('fill', '#000');
     });
 
     function wrapPosipakyList() {
@@ -272,7 +276,9 @@ document.addEventListener(
 
 
     $(document).ready(function() {
-        populateUaMap();
+        if ($('.map').length > 0) {
+            populateUaMap();
+        }
 
         setExFormStateFromUrl();
         setDropdownsValue();

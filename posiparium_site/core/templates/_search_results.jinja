@@ -2,295 +2,60 @@
 
     <section class="search-results">
         <div class="container">
-            <div class="display-options">
-                <!-- todo: align, styles, cookies -->
-                <span class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" name="filter-paid" checked="checked">
-                            <span class="checkbox-material"><span class="check"></span></span>
-                            <span>На платній основі</span>
-                        </label>
-                    </div>
-                </span>
-                <span class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" name="filter-free" checked="checked">
-                            <span class="checkbox-material"><span class="check"></span></span>
-                            <span>На загальних засадах</span>
-                        </label>
-                    </div>
-                </span>
-            </div>
 
             {% set region = "" %}
             {% set body = "" %}
             {% for region in search_results|groupby('region') %}
-                <h2>{{ region.grouper }}</h2>
+                <h2 class="search-grouper-title region-grouper">{{ region.grouper }}</h2>
                 {% for body in region.list|groupby('body') %}
-                    <h3>{{ body.grouper }}</h3>
+                    <h3 class="search-grouper-title body-grouper">{{ body.grouper }}</h3>
+
                     {% for mp in body.list|groupby('mp.grouper') %}
                         {% set first_item = mp.list[0].mp %}
-                        <h4><a href="{{ url('mp_details', first_item.id) }}">{{ first_item.name }}</a></h4>
-                        {% if first_item.party %}
-                        <p>
-                            Партія: {{ first_item.party }}
-                        </p>
+                        {% if loop.index is not divisibleby 2 %}
+                            <div class="row">
                         {% endif %}
-                        {% if first_item.fraction %}
-                        <p>
-                            Фракція: {{ first_item.fraction }}
-                        </p>
-                        {% endif %}
-                        {% if first_item.comission %}
-                        <p>
-                            Комісія: {{ first_item.comission }}
-                        </p>
-                        {% endif %}
+                        <div class="small-profile col-sm-6" itemscope="" itemtype="http://schema.org/Person">
+                            <div class="box active-box" data-url="{{ url('mp_details', first_item.id) }}">
+                                <header class="profile-header">
+                                    <div class="avatar no-foto"></div>
+                                    <h3 class="name" itemprop="name">{{ first_item.name }}</h3>
+                                </header>
 
-                        <ul>
-                            {% for minion in mp.list %}
-                            <li>{{ minion.name }}{% if minion.confirmed %} (Підтверджено {{ minion.confirmed|format_date }}){% endif %}</li>
-                            {% endfor %}
-                        </ul>
+                                <div class="descr">
+                                {% if first_item.party %}
+                                    <div>
+                                        <span>Партія:</span> {{ first_item.party }}
+                                    </div>
+                                {% endif %}
+
+                                {% if first_item.fraction %}
+                                    <div>
+                                        <span>Фракція:</span> {{ first_item.fraction }}
+                                    </div>
+                                {% endif %}
+
+                                {% if first_item.comission %}
+                                    <div>
+                                        <span>Комісія</span> {{ first_item.comission }}
+                                    </div>
+                                {% endif %}
+                                </div>
+
+                                <ul class="posipaky">
+                                    <span>Помічники: </span>
+                                    {% for minion in mp.list %}
+                                    <li class="link_nb">{{ minion.name }}{% if minion.confirmed %} (Підтверджено {{ minion.confirmed|format_date }}){% endif %}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        {% if loop.index is divisibleby 2 %}
+                            </div>
+                        {% endif %}
                     {% endfor %}
                 {% endfor %}
             {% endfor %}
-
-            <div class="row">
-
-                <div class="small-profile col-sm-6" itemscope="" itemtype="http://schema.org/Person">
-                    <link itemprop="url" href="/">
-                    <div class="box active-box" data-url="/uk/person/17058">
-                        <header class="profile-header">
-                            <div class="avatar no-foto"></div>
-                            <h3 class="name" itemprop="name">
-                                <span itemprop="familyName">Савенко</span>
-                                <span class="pib">
-                                    <span itemprop="givenName">Валерій</span>
-                                    <span itemprop="additionalName">Анатолійович</span>
-                                </span>
-                            </h3>
-                        </header>
-
-                        <div class="descr">
-                            <div>
-                                <span>Область: </span>Київська
-                            </div>
-                            <div>
-                                <span>Посада: </span>
-                                <a href="/" itemprop="worksFor" itemscope="" itemtype="http://schema.org/Organization"><span itemprop="name">Новоукраїнська районна адміністрація, Кіровоградська область</span></a>,
-                                <span itemprop="jobTitle">голова районної державної адміністрації</span>
-                            </div>
-                            <div>
-                                <span>Партія: </span> БЮТ
-                            </div>
-                        </div>
-
-                        <div class="posipaky">
-                            <span>Помічники: </span>
-                            <a href="/minion/289419" class="link_nb">
-                                Іваненко Леонід Іванович
-                                <span class="blue" title="На платній основі">На платній основі</span>
-                            </a>
-                            <a href="/minion/289416" class="link_nb">
-                                Афанасьєва Олена Владиславівна
-                                <span class="blue" title="На платній основі">На платній основі</span>
-                            </a>
-                            <a href="/minion/289431" class="link_nb">
-                                Єгоров Володимир Олександрович
-                                <span class="yellow" title="На громадських засадах">На громадських засадах</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="small-profile col-sm-6" itemscope="" itemtype="http://schema.org/Person">
-                    <link itemprop="url" href="/">
-                    <div class="box active-box" data-url="/uk/person/17058">
-                        <header class="profile-header">
-                            <div class="avatar no-foto"></div>
-                            <h3 class="name" itemprop="name">
-                                <span itemprop="familyName">Савенко</span>
-                                <span class="pib">
-                                    <span itemprop="givenName">Валерій</span>
-                                    <span itemprop="additionalName">Анатолійович</span>
-                                </span>
-                            </h3>
-                        </header>
-
-                        <div class="descr">
-                            <div>
-                                <span>Область: </span>Київська
-                            </div>
-                            <div>
-                                <span>Посада: </span>
-                                <a href="/" itemprop="worksFor" itemscope="" itemtype="http://schema.org/Organization"><span itemprop="name">Новоукраїнська районна адміністрація, Кіровоградська область</span></a>,
-                                <span itemprop="jobTitle">голова районної державної адміністрації</span>
-                            </div>
-                            <div>
-                                <span>Партія: </span> БЮТ
-                            </div>
-                        </div>
-
-                        <div class="posipaky">
-                            <span>Помічники: </span>
-                            <a href="/minion/289419" class="link_nb">
-                                Іваненко Леонід Іванович
-                                <span class="blue" title="На платній основі">На платній основі</span>
-                            </a>
-                            <a href="/minion/289416" class="link_nb">
-                                Афанасьєва Олена Владиславівна
-                                <span class="blue" title="На платній основі">На платній основі</span>
-                            </a>
-                            <a href="/minion/289431" class="link_nb">
-                                Єгоров Володимир Олександрович
-                                <span class="yellow" title="На громадських засадах">На громадських засадах</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="small-profile col-sm-6" itemscope="" itemtype="http://schema.org/Person">
-                    <link itemprop="url" href="/">
-                    <div class="box active-box" data-url="/uk/person/17058">
-                        <header class="profile-header">
-                            <div class="avatar no-foto"></div>
-                            <h3 class="name" itemprop="name">
-                                <span itemprop="familyName">Савенко</span>
-                                <span class="pib">
-                                    <span itemprop="givenName">Валерій</span>
-                                    <span itemprop="additionalName">Анатолійович</span>
-                                </span>
-                            </h3>
-                        </header>
-
-                        <div class="descr">
-                            <div>
-                                <span>Область: </span>Київська
-                            </div>
-                            <div>
-                                <span>Посада: </span>
-                                <a href="/" itemprop="worksFor" itemscope="" itemtype="http://schema.org/Organization"><span itemprop="name">Новоукраїнська районна адміністрація, Кіровоградська область</span></a>,
-                                <span itemprop="jobTitle">голова районної державної адміністрації</span>
-                            </div>
-                            <div>
-                                <span>Партія: </span> БЮТ
-                            </div>
-                        </div>
-
-                        <div class="posipaky">
-                            <span>Помічники: </span>
-                            <a href="/minion/289419" class="link_nb">
-                                Іваненко Леонід Іванович
-                                <span class="blue" title="На платній основі">На платній основі</span>
-                            </a>
-                            <a href="/minion/289416" class="link_nb">
-                                Афанасьєва Олена Владиславівна
-                                <span class="blue" title="На платній основі">На платній основі</span>
-                            </a>
-                            <a href="/minion/289431" class="link_nb">
-                                Єгоров Володимир Олександрович
-                                <span class="yellow" title="На громадських засадах">На громадських засадах</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="small-profile col-sm-6" itemscope="" itemtype="http://schema.org/Person">
-                    <link itemprop="url" href="/">
-                    <div class="box active-box" data-url="/uk/person/17058">
-                        <header class="profile-header">
-                            <div class="avatar no-foto"></div>
-                            <h3 class="name" itemprop="name">
-                                <span itemprop="familyName">Савенко</span>
-                                <span class="pib">
-                                    <span itemprop="givenName">Валерій</span>
-                                    <span itemprop="additionalName">Анатолійович</span>
-                                </span>
-                            </h3>
-                        </header>
-
-                        <div class="descr">
-                            <div>
-                                <span>Область: </span>Київська
-                            </div>
-                            <div>
-                                <span>Посада: </span>
-                                <a href="/" itemprop="worksFor" itemscope="" itemtype="http://schema.org/Organization"><span itemprop="name">Новоукраїнська районна адміністрація, Кіровоградська область</span></a>,
-                                <span itemprop="jobTitle">голова районної державної адміністрації</span>
-                            </div>
-                            <div>
-                                <span>Партія: </span> БЮТ
-                            </div>
-                        </div>
-
-                        <div class="posipaky">
-                            <span>Помічники: </span>
-                            <a href="/minion/289419" class="link_nb">
-                                Іваненко Леонід Іванович
-                                <span class="blue" title="На платній основі">На платній основі</span>
-                            </a>
-                            <a href="/minion/289416" class="link_nb">
-                                Афанасьєва Олена Владиславівна
-                                <span class="blue" title="На платній основі">На платній основі</span>
-                            </a>
-                            <a href="/minion/289431" class="link_nb">
-                                Єгоров Володимир Олександрович
-                                <span class="yellow" title="На громадських засадах">На громадських засадах</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="small-profile col-sm-6" itemscope="" itemtype="http://schema.org/Person">
-                    <link itemprop="url" href="/">
-                    <div class="box active-box" data-url="/uk/person/17058">
-                        <header class="profile-header">
-                            <div class="avatar no-foto"></div>
-                            <h3 class="name" itemprop="name">
-                                <span itemprop="familyName">Савенко</span>
-                                <span class="pib">
-                                    <span itemprop="givenName">Валерій</span>
-                                    <span itemprop="additionalName">Анатолійович</span>
-                                </span>
-                            </h3>
-                        </header>
-
-                        <div class="descr">
-                            <div>
-                                <span>Область: </span>Київська
-                            </div>
-                            <div>
-                                <span>Посада: </span>
-                                <a href="/" itemprop="worksFor" itemscope="" itemtype="http://schema.org/Organization"><span itemprop="name">Новоукраїнська районна адміністрація, Кіровоградська область</span></a>,
-                                <span itemprop="jobTitle">голова районної державної адміністрації</span>
-                            </div>
-                            <div>
-                                <span>Партія: </span> БЮТ
-                            </div>
-                        </div>
-
-                        <div class="posipaky">
-                            <span>Помічники: </span>
-                            <a href="/minion/289419" class="link_nb">
-                                Іваненко Леонід Іванович
-                                <span class="blue" title="На платній основі">На платній основі</span>
-                            </a>
-                            <a href="/minion/289416" class="link_nb">
-                                Афанасьєва Олена Владиславівна
-                                <span class="blue" title="На платній основі">На платній основі</span>
-                            </a>
-                            <a href="/minion/289431" class="link_nb">
-                                Єгоров Володимир Олександрович
-                                <span class="yellow" title="На громадських засадах">На громадських засадах</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
 
             {% if search_results.paginator.num_pages > 1 %}
             <nav>

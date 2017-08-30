@@ -1,4 +1,14 @@
 .front {
+  .navbar-brand {
+    display: none;
+  }
+
+  .lead {
+    text-transform: uppercase;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 1rem;
+  }
+
   .navbar-nav {
     justify-content: center;
   }
@@ -7,24 +17,33 @@
     color: white;
   }
 
-  .small-search {
-    margin-top: 80px;
+  .stats {
+    width: 100%;
+    li {
+      display: inline-block;
+      text-align: center;
+      border-right: #f5d0a6 1px solid;
+      margin-right: 20px;
+      padding-right: 20px;
 
-    .input-group {
-      border-radius: 5px;
-      border: $minion-red 2px solid;
-      background: white;
+      &:last-child {
+        border: none;
+        margin-right: 0;
+        padding-right: 0;
+      }
     }
 
-    input,
-    button {
-      border: none;
-      border-radius: 0;
-      background: none;
-    }
+    span {
+      display: block;
+      font-family: 'Roboto', sans-serif;
+      font-size: 24px;
+      font-weight: 200;
 
-    button {
-      color: $minion-red;
+      &.count {
+        font-family: 'Roboto Condensed', sans-serif;
+        font-size: 72px; //todo
+        line-height: 72px;
+      }
     }
   }
 }

@@ -1,55 +1,42 @@
 {% extends "base.jinja" %}
 
-{% block body_class %}profile-page{% endblock %}
+{% block body_class %}not-front profile-page{% endblock %}
 
 {% block navigation %}
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTop" aria-controls="navbarTop" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="#">Posiparium</a>
+    <a class="navbar-brand pt-0" href="#">Posiparium</a>
 
     <div class="collapse navbar-collapse" id="navbarTop">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/">Головна</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdownR" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Регіони</a>
+                <div class="dropdown-menu" aria-labelledby="dropdownR">
+                    {% for region in regions %}
+                        <a class="dropdown-item" href="{{ region.get_absolute_url() }}">{{ region.name }}</a>
+                    {% endfor %}
+                </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/">Розширений пошук <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="#">Ще шось</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/">Регіони</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/">Ще шось</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link inner-search-button" href="#"><i class="icon ion-ios-search-strong"></i></a>
+                {% include "_search_form.jinja" %}
             </li>
         </ul>
     </div>
 {% endblock %}
 
 {% block content %}
-    <div class="float-search">
-        <div class="small-search container">
-            <div class="searchbox">
-                <form action="{{ url('search') }}" method="GET">
-                    <div class="input-group">
-                        <input type="text" name="q" class="form-control search-name" placeholder="Знайти посiпаку...">
-                        <span class="input-group-btn">
-                            <button class="btn btn-secondary" type="button"><i class="icon ion-search"></i></button>
-                        </span>
-                    </div>
-                </form>
-                <a class="ex-search-link" href="/search.html#exsearch">Розширений пошук</a>
-            </div>
-        </div>
-    </div>
-
     <section class="jumbotron bg-yellow">
         <div class="container">
             <div class="media">
-                <img class="d-flex align-self-center mr-3 rounded-circle" src="{{ mp.img|thumbnail_url("avatar") }}" alt="{{ mp.name }}">
+                {% if mp.img %}
+                    <img class="d-flex align-self-center mr-3 rounded-circle" src="{{ mp.img|thumbnail_url("avatar") }}" alt="{{ mp.name }}">
+                {% else %}
+                    <div class="no-foto d-flex align-self-center mr-3 rounded-circle"></div>
+                {% endif %}
                 <div class="media-body align-self-center">
                     <h1 class="mt-0 mb-3">{{ mp.name }}</h1>
                 </div>
@@ -92,13 +79,15 @@
                             <p>{{ minions_count }} {{ minions_count|uk_plural("помічник,помічника,помічників") }}</p>
 
                         </div>
-                        <div class="wrap_block cf">
+                        <ul class="wrap_block cf">
                             {% for minion_link in convo.minion2mp2convocation_set.all() %}
-                                <h2 itemprop="name">{{ minion_link.minion.name }}</h2>
-                                <span itemprop="jobTitle" class="hide">Помічник депутата</span>
-                                {% if minion_link.confirmed %}
-                                    <span class="radius yellow">{{ minion_link.confirmed|format_date }}</span>
-                                {% endif %}
+                                <li class="link_nb">
+                                    <h2 itemprop="name">{{ minion_link.minion.name }}</h2>
+                                    <span itemprop="jobTitle" class="hide">Помічник депутата</span>
+                                    {% if minion_link.confirmed %}
+                                        <span class="radius yellow">{{ minion_link.confirmed|format_date }}</span>
+                                    {% endif %}
+                                </li>
                             {% endfor %}
                         </div>
                     </div>

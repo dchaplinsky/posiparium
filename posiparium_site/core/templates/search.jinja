@@ -1,6 +1,13 @@
 {% extends "base.jinja" %}
+{% block body_class %}not-front search-page{% endblock %}
 
 {% block content %}
-    {% include "_search_form.jinja" %}
+    <section class="jumbotron bg-yellow pb-1 pt-4">
+        <div class="container">
+            <h1>Пошук</h1>
+            {% include "_search_form.jinja" %}
+        </div>
+    </section>
+
     {% include "_search_results.jinja" %}
 {% endblock %}

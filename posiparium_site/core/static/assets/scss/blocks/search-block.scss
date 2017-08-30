@@ -1,3 +1,69 @@
+.small-search {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  @include make-row();
+  justify-content: center;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+
+  .input-group {
+    border-radius: 5px;
+    border: $minion-red 2px solid;
+    background: white;
+  }
+
+  input,
+  button {
+    border: none;
+    border-radius: 0;
+    background: none;
+  }
+
+  button {
+    color: $minion-red;
+    cursor: pointer;
+  }
+
+  .searchbox {
+    @include make-col(6);
+    order: 0;
+    align-self: auto;
+  }
+
+  //todo in future
+  /*.ex-search-link {
+    color: white;
+    margin-left: 15px;
+    margin-top: 10px;
+    display: block;
+    opacity: 0.8;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+
+    &:hover {
+      opacity: 1;
+    }
+  }*/
+}
+
+.not-front .small-search {
+  justify-content: flex-start;
+}
+
+.navbar-nav {
+  .small-search {
+    margin: 0;
+
+    .searchbox {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+  }
+}
+
+//todo in future
+/*
 #ex-search-form {
   clear: both;
   margin-top: 20px;
@@ -19,7 +85,6 @@
       text-transform: uppercase;
       font-size: 12px;
       color: black;
-      //font-family: 'arsenalbold';
       margin-top: 15px;
       margin-bottom: 5px;
 
@@ -99,150 +164,13 @@
     color: black;
   }
 
-  //we have some params in search url
   &.ex-search {
     .ex-search-link {
       display: none;
     }
   }
 }
-
-.box {
-  background: none repeat scroll 0 0 #fff;
-  border: 0 none;
-  border-radius: 2px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16);
-  padding: 30px;
-}
-
-.small-profile {
-  float: left;
-
-  .box {
-    padding: 15px;
-    position: relative;
-
-    &:before {
-      content: '';
-      display: block;
-      position: absolute;
-      z-index: 0;
-      width: 100%;
-      height: 50px;
-      left: 0;
-      top: 0;
-      @include blueGradient();
-    }
-
-    &:hover {
-      box-shadow: inset 0 3px 10px rgba(0,0,0,0.23), inset 0 3px 10px rgba(0,0,0,0.16);
-      cursor: pointer;
-    }
-  }
-
-  .profile-header {
-    position: relative;
-    z-index: 1;
-  }
-
-  $w: 100px;
-
-  .avatar {
-    float: left;
-    display: block;
-    height: $w;
-    width: $w;
-
-    img {
-      height: $w;
-      width: auto;
-    }
-
-    &.no-foto {
-      position: relative;
-      background: #eceeef;
-
-      &:after {
-        content: "\f3a0";
-        font-family: "Ionicons";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%,-50%);
-        opacity: 0.5;
-        font-size: 100px;
-      }
-    }
-  }
-
-  .name,
-  .descr {
-    margin-left: $w + 20px;
-  }
-
-  .name {
-    color: #FFFFFF;
-    margin-top: 10px;
-    font-weight: normal;
-    font-size: 24px;
-    text-transform: uppercase;
-
-    .pib {
-      font-size: 20px;
-      display: block;
-      text-transform: none;
-      color: $text;
-    }
-  }
-
-  .descr {
-    margin-left: 120px;
-    position: relative;
-    display: block;
-
-    span {
-      font-weight: bold;
-    }
-
-    p {
-      margin-bottom: 0;
-    }
-
-    span.small-tip {
-      font-size: 12px;
-      margin-left: -45px;
-      color: #7B7B7B;
-    }
-  }
-
-  .posipaky {
-    > div > span {
-      font-weight: bold;
-    }
-  }
-
-  &.open {
-    position: absolute;
-    z-index: 11;
-
-    .posipaky {
-      .link_nb {
-        &.hidden {
-          display: block;
-        }
-      }
-
-      .show-more {
-        display: none;
-      }
-    }
-
-    + .small-profile {
-      margin-left: 50%;
-    }
-
-  }
-}
+*/
 
 .link_nb {
   display: block;
@@ -266,38 +194,6 @@
 
 .float-search {
   display: none;
-}
-
-.front .small-search {
-  @include make-row();
-  justify-content: center;
-
-  .searchbox {
-    @include make-col(6);
-    order: 0;
-    align-self: auto;
-  }
-}
-
-.small-search {
-  button {
-    cursor: pointer;
-  }
-
-  .ex-search-link {
-    color: white;
-    margin-left: 15px;
-    margin-top: 10px;
-    display: block;
-    opacity: 0.8;
-    text-transform: uppercase;
-    font-size: 12px;
-    font-weight: bold;
-
-    &:hover {
-      opacity: 1;
-    }
-  }
 }
 
 body.open-search {
