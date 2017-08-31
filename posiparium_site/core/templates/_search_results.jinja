@@ -18,7 +18,13 @@
                         <div class="small-profile col-lg-6" itemscope="" itemtype="http://schema.org/Person">
                             <a class="box active-box" href="{{ url('mp_details', first_item.id) }}">
                                 <header class="profile-header">
-                                    <div class="avatar no-foto"></div>
+                                    {% if first_item.img %}
+                                        <div class="avatar=">
+                                            <img class="d-flex align-self-center mr-3 rounded-circle" src="{{ first_item.img|thumbnail_url("avatar") }}" alt="{{ first_item.name }}">
+                                        </div>
+                                    {% else %}
+                                        <div class="avatar no-foto"></div>
+                                    {% endif %}
                                     <h3 class="name" itemprop="name">{{ first_item.name }}</h3>
                                 </header>
 

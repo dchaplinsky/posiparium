@@ -55,10 +55,46 @@
   .small-search {
     margin: 0;
 
+    @include placeholder-color(white);
+
+    .input-group {
+      background: none;
+      border: $minion-pale-yellow 2px solid;
+      color: $minion-pale-yellow;
+
+      &:focus {
+        background: white;
+        border: $minion-red 2px solid;
+        color: $text;
+
+        @include placeholder-color(black);
+      }
+    }
+
     .searchbox {
       flex: 0 0 100%;
       max-width: 100%;
     }
+  }
+}
+
+.link_nb {
+  display: block;
+  overflow: hidden;
+  clear: both;
+  border-top: 1px solid #e3e3e3;
+  padding: 5px 0;
+  color: $text;
+
+  &.hidden {
+    display: none;
+  }
+
+  span {
+    float: right;
+    color: white;
+    border-radius: 2px;
+    padding: 0 7px 2px 7px;
   }
 }
 
@@ -172,84 +208,5 @@
 }
 */
 
-.link_nb {
-  display: block;
-  overflow: hidden;
-  clear: both;
-  border-top: 1px solid #e3e3e3;
-  padding: 5px 0;
-  color: $text;
 
-  &.hidden {
-    display: none;
-  }
 
-  span {
-    float: right;
-    color: white;
-    border-radius: 2px;
-    padding: 0 7px 2px 7px;
-  }
-}
-
-.float-search {
-  display: none;
-}
-
-body.open-search {
-  position: relative;
-
-  &:after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.75);
-    z-index: 10;
-  }
-
-  .float-search {
-    display: block;
-    position: absolute;
-    width: 100%;
-    z-index: 12;
-
-    ::-webkit-input-placeholder {
-      color: $minion-yellow
-    }
-
-    ::-moz-placeholder {
-      color: $minion-yellow
-    }
-
-    :-ms-input-placeholder {
-      color: $minion-yellow
-    }
-
-    input:-moz-placeholder {
-      color: $minion-yellow
-    }
-
-    form {
-      input {
-        background: none;
-        border: none;
-        border-radius: 0;
-        border-bottom: white 2px solid;
-        color: $minion-yellow;
-        font-size: 22px;
-      }
-
-      button {
-        background: none;
-        border: none;
-        border-radius: 0;
-        color: $minion-yellow;
-        font-size: 22px;
-      }
-    }
-  }
-}
