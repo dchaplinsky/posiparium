@@ -22,6 +22,11 @@
   button {
     color: $minion-red;
     cursor: pointer;
+
+    &:hover {
+      background: $minion-red;
+      color: white;
+    }
   }
 
   .searchbox {

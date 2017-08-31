@@ -68,9 +68,9 @@
                         {% if convo.fraction %}<p><span class="f_left">Фракція</span> {{ convo.fraction }}</p>{% endif %}
                         {% if convo.comission %}<p><span class="f_left">Комісія</span> {{ convo.comission }}</p>{% endif %}
                         {% if convo.link %}
-                        <p><a class="find_viki" href="{{ convo.link }}" target="_blank">Офіційна сторінка</a></p>
+                        <p><a class="find_viki" href="{{ convo.link }}" target="_blank"><i class="icon ion-ios-world-outline"></i> <span class="text-underline">Офіційна сторінка</span></a></p>
                         {% endif %}
-                        <p><span class="f_left">Період</span> з {{ convocation.year_from }} по {{ convocation.year_to }}</p>
+                        <p><span class="f_left"><i class="icon ion-android-calendar"></i> Період</span> з {{ convocation.year_from }} по {{ convocation.year_to }}</p>
                     </div>
 
                     <div class="bottom_block list_persons cf">

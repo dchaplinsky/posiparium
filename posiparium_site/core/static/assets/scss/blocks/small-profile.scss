@@ -19,7 +19,7 @@
       position: absolute;
       z-index: 0;
       width: 100%;
-      height: 85px;
+      height: 95px;
       left: 0;
       top: 0;
       @include blueGradient();
@@ -33,6 +33,11 @@
 
   .show-more {
     cursor: pointer;
+
+    &:hover {
+      color: $minion-red;
+      text-decoration: underline;
+    }
   }
 
   .profile-header {
@@ -127,8 +132,10 @@
   }
 
   &.open {
-    position: absolute;
-    z-index: 11;
+    @media (min-width: 992px) {
+      position: absolute;
+      z-index: 11;
+    }
 
     .posipaky {
       .link_nb {
@@ -143,8 +150,25 @@
     }
 
     + .small-profile {
-      margin-left: 50%;
+      @media (min-width: 992px) {
+        margin-left: 50%;
+      }
     }
 
   }
 }
+
+.row {
+  .small-profile:last-child {
+    &.open {
+      @media (min-width: 992px) {
+        margin-left: 50%;
+      }
+    }
+
+    @media (max-width: 991px) {
+      margin-top: 40px;
+    }
+  }
+}
+

@@ -57,6 +57,10 @@
     border-bottom: none;
     margin-bottom: 0;
 
+    p {
+      font-size: 14px;
+    }
+
     &:nth-child(1) {
       .nav-link {
         border-top-left-radius: 0.25rem;
@@ -66,7 +70,7 @@
 
   .nav-link {
     opacity: 0.8;
-    padding: 1em 1.5em;
+    //padding: 1em 1.5em;
     font-size: 20px;
     font-weight: bold;
   }
