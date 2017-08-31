@@ -15,8 +15,8 @@
                         {% if loop.index is not divisibleby 2 %}
                             <div class="row">
                         {% endif %}
-                        <div class="small-profile col-sm-6" itemscope="" itemtype="http://schema.org/Person">
-                            <div class="box active-box" data-url="{{ url('mp_details', first_item.id) }}">
+                        <div class="small-profile col-lg-6" itemscope="" itemtype="http://schema.org/Person">
+                            <a class="box active-box" href="{{ url('mp_details', first_item.id) }}">
                                 <header class="profile-header">
                                     <div class="avatar no-foto"></div>
                                     <h3 class="name" itemprop="name">{{ first_item.name }}</h3>
@@ -45,10 +45,10 @@
                                 <ul class="posipaky">
                                     <span>Помічники: </span>
                                     {% for minion in mp.list %}
-                                    <li class="link_nb">{{ minion.name }}{% if minion.confirmed %} (Підтверджено {{ minion.confirmed|format_date }}){% endif %}</li>
+                                    <li class="link_nb">{{ minion.name }}{% if minion.confirmed %} <span class="radius yellow">{{ minion.confirmed|format_date }}</span>{% endif %}</li>
                                     {% endfor %}
                                 </ul>
-                            </div>
+                            </a>
                         </div>
                         {% if loop.index is divisibleby 2 %}
                             </div>
