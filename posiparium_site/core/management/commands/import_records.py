@@ -134,7 +134,10 @@ class Command(BaseCommand):
                                     file, mp_name, office))
 
                         if photo and not mp_model.img:
-                            resp = requests.get(photo)
+                            resp = requests.get(
+                                photo,
+                                headers={"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/10.1.2 Safari/603.3.8"}
+                            )
 
                             if resp.status_code != 200:
                                 self.stderr.write("Cannot download image %s for %s" % (

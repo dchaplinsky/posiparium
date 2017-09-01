@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 
 from easy_thumbnails.files import get_thumbnailer
+from easy_thumbnails.exceptions import EasyThumbnailsError
 
 
 def title(s):
@@ -140,7 +141,10 @@ class MP2Convocation(models.Model):
         m["link"] = self.link
         m["id"] = self.mp.id
         if self.mp.img:
-            m["img_thumbnail"] = get_thumbnailer(self.mp.img)['avatar'].url
+            try:
+                m["img_thumbnail"] = get_thumbnailer(self.mp.img)['avatar'].url
+            except EasyThumbnailsError:
+                pass
 
         m["grouper"] = "%s %s" % (self.convocation_id, self.mp.name)
 
