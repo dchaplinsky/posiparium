@@ -247,7 +247,7 @@ document.addEventListener(
                 $item = $this.find('.link_nb');
 
             if($item.length > 3) {
-                $this.find('.link_nb:nth-child(4)').after("<a href='#' class='show-more'>Показати всіх (" + $item.length + ")</a>").nextAll().addClass('hidden');
+                $this.find('.link_nb:nth-child(4)').after("<span class='show-more'>Показати всіх (" + $item.length + ")</span>").nextAll().addClass('hidden');
             }
         });
 
@@ -273,7 +273,6 @@ document.addEventListener(
         e.preventDefault();
         $('body').addClass('open-search');
     });
-
 
     $(document).ready(function() {
         if ($('.map').length > 0) {

@@ -27,7 +27,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdownR" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Регіони</a>
                         <div class="dropdown-menu" aria-labelledby="dropdownR">
-                            {% for region in regions %}
+                            {% for region in all_regions %}
                                 <a class="dropdown-item" href="{{ region.get_absolute_url() }}">{{ region.name }}</a>
                             {% endfor %}
                         </div>

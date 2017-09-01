@@ -150,3 +150,21 @@ S - the font-size in pixels
     box-shadow: 0 0 0 0 rgba(204,169,44, 0);
   }
 }
+
+@mixin placeholder-color($color) {
+  ::-webkit-input-placeholder {
+    color: $color;
+  }
+
+  ::-moz-placeholder {
+    color: $color;
+  }
+
+  :-ms-input-placeholder {
+    color: $color;
+  }
+
+  input:-moz-placeholder {
+    color: $color;
+  }
+}

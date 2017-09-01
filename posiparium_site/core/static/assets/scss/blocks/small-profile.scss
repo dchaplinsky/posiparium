@@ -2,8 +2,16 @@
   float: left;
 
   .box {
-    padding: 15px;
     position: relative;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    height: 100%;
+    background: none repeat scroll 0 0 #fff;
+    border: 0 none;
+    border-radius: 2px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16);
+    padding: 30px;
 
     &:before {
       content: '';
@@ -11,7 +19,7 @@
       position: absolute;
       z-index: 0;
       width: 100%;
-      height: 50px;
+      height: 95px;
       left: 0;
       top: 0;
       @include blueGradient();
@@ -20,6 +28,15 @@
     &:hover {
       box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.23), inset 0 3px 10px rgba(0, 0, 0, 0.16);
       cursor: pointer;
+    }
+  }
+
+  .show-more {
+    cursor: pointer;
+
+    &:hover {
+      color: $minion-red;
+      text-decoration: underline;
     }
   }
 
@@ -35,6 +52,8 @@
     display: block;
     height: $w;
     width: $w;
+    border-radius: 100%;
+    overflow: hidden;
 
     img {
       height: $w;
@@ -52,8 +71,8 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        opacity: 0.5;
-        font-size: 100px;
+        opacity: 0.3;
+        font-size: 80px;
       }
     }
   }
@@ -65,10 +84,10 @@
 
   .name {
     color: #FFFFFF;
-    margin-top: 10px;
     font-weight: normal;
     font-size: 24px;
     text-transform: uppercase;
+    min-height: 62px;
 
     .pib {
       font-size: 20px;
@@ -99,14 +118,24 @@
   }
 
   .posipaky {
+    margin-left: 0;
+    padding-left: 0;
+    margin-top: 10px;
+
+    > span {
+      font-weight: bold;
+    }
+
     > div > span {
       font-weight: bold;
     }
   }
 
   &.open {
-    position: absolute;
-    z-index: 11;
+    @media (min-width: 992px) {
+      position: absolute;
+      z-index: 11;
+    }
 
     .posipaky {
       .link_nb {
@@ -121,8 +150,25 @@
     }
 
     + .small-profile {
-      margin-left: 50%;
+      @media (min-width: 992px) {
+        margin-left: 50%;
+      }
     }
 
   }
 }
+
+.row {
+  .small-profile:last-child {
+    &.open {
+      @media (min-width: 992px) {
+        margin-left: 50%;
+      }
+    }
+
+    @media (max-width: 991px) {
+      margin-top: 40px;
+    }
+  }
+}
+

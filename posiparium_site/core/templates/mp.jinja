@@ -13,7 +13,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdownR" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Регіони</a>
                 <div class="dropdown-menu" aria-labelledby="dropdownR">
-                    {% for region in regions %}
+                    {% for region in all_regions %}
                         <a class="dropdown-item" href="{{ region.get_absolute_url() }}">{{ region.name }}</a>
                     {% endfor %}
                 </div>
@@ -54,7 +54,7 @@
             <ul class="nav nav-tabs" role="tablist">
                 {% for convo in mp.mp2convocation_set.all() %}
                 <li class="nav-item">
-                    <a class="nav-link active" href="#conv_{{ convo.pk }}" role="tab" data-toggle="tab">{{ convo.convocation.number }} скликання, {{ convo.convocation.office.name }} </a>
+                    <a class="nav-link active" href="#conv_{{ convo.pk }}" role="tab" data-toggle="tab">{{ convo.convocation.number }} скликання, <p>{{ convo.convocation.office.name }}</p> </a>
                 </li>
                 {% endfor %}
             </ul>
@@ -68,9 +68,9 @@
                         {% if convo.fraction %}<p><span class="f_left">Фракція</span> {{ convo.fraction }}</p>{% endif %}
                         {% if convo.comission %}<p><span class="f_left">Комісія</span> {{ convo.comission }}</p>{% endif %}
                         {% if convo.link %}
-                        <p><a class="find_viki" href="{{ convo.link }}" target="_blank">Офіційна сторінка</a></p>
+                        <p><a class="find_viki" href="{{ convo.link }}" target="_blank"><i class="icon ion-ios-world-outline"></i> <span class="text-underline">Офіційна сторінка</span></a></p>
                         {% endif %}
-                        <p><span class="f_left">Період</span> з {{ convocation.year_from }} по {{ convocation.year_to }}</p>
+                        <p><span class="f_left"><i class="icon ion-android-calendar"></i> Період</span> з {{ convocation.year_from }} по {{ convocation.year_to }}</p>
                     </div>
 
                     <div class="bottom_block list_persons cf">
@@ -96,70 +96,4 @@
             </div>
         </div>
     </section>
-
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myLargeModal">Був помiчником у депутатiв</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="block_wrap block_row cf">
-
-                        <div class="col-md-12" itemscope="" itemtype="http://schema.org/Person" itemprop="knows">
-                            <div class="col-md-6">
-                                <p><a href="/mp/9861" itemprop="url"><span itemprop="name">Ляшко Олег Валерійович</span></a>
-                                    <span itemprop="jobTitle" class="hide">Депутат</span></p>
-                            </div>
-                            <div class="col-md-6" itemscope="" itemtype="http://schema.org/Organization" itemprop="worksFor">
-                                <p><span itemprop="name">Блок Юлії Тимошенко</span>, <a href="/convocation/5">5 скликання</a></p>
-                                <span class="circle blue" title="На платній основі"></span>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12" itemscope="" itemtype="http://schema.org/Person" itemprop="knows">
-                            <div class="col-md-6">
-                                <p><a href="/mp/9895" itemprop="url"><span itemprop="name">Пєрєдєрій В'ячеслав Григорович</span></a>
-                                    <span itemprop="jobTitle" class="hide">Депутат</span></p>
-                            </div>
-                            <div class="col-md-6" itemscope="" itemtype="http://schema.org/Organization" itemprop="worksFor">
-                                <p><span itemprop="name">Блок Юлії Тимошенко</span>, <a href="/convocation/5">5 скликання</a></p>
-                                <span class="circle blue" title="На платній основі"></span>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12" itemscope="" itemtype="http://schema.org/Person" itemprop="knows">
-                            <div class="col-md-6">
-                                <p><a href="/mp/9579" itemprop="url"><span itemprop="name">Семинога Анатолій Іванович</span></a>
-                                    <span itemprop="jobTitle" class="hide">Депутат</span></p>
-                            </div>
-                            <div class="col-md-6" itemscope="" itemtype="http://schema.org/Organization" itemprop="worksFor">
-                                <p><span itemprop="name">Блок Юлії Тимошенко</span>, <a href="/convocation/6">6 скликання</a></p>
-                                <span class="circle blue" title="На платній основі"></span>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12" itemscope="" itemtype="http://schema.org/Person" itemprop="knows">
-                            <div class="col-md-6">
-                                <p><a href="/mp/9579" itemprop="url"><span itemprop="name">Семинога Анатолій Іванович</span></a>
-                                    <span itemprop="jobTitle" class="hide">Депутат</span></p>
-                            </div>
-                            <div class="col-md-6" itemscope="" itemtype="http://schema.org/Organization" itemprop="worksFor">
-                                <p><span itemprop="name">Блок Юлії Тимошенко</span>, <a href="/convocation/6">6 скликання</a></p>
-                                <span class="circle yellow" title="На громадських засадах"></span>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
 {% endblock %}
