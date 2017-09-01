@@ -32,12 +32,35 @@
       margin-bottom: -100px;
       margin-top: 20px;
 
+      $foto-size: 150px;
+
       img {
         border: white 4px solid;
+        height: $foto-size;
+        width: auto;
+      }
+
+      .no-foto {
+        position: relative;
+        background: white;
+        height: $foto-size;
+        width: $foto-size;
+
+        &:after {
+          content: "\f3a0";
+          font-family: "Ionicons";
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          opacity: 0.3;
+          font-size: 120px;
+          color: $text;
+        }
       }
 
       .media-body {
-        //margin-top: 1rem !important;
+        margin-top: -40px;
       }
     }
   }

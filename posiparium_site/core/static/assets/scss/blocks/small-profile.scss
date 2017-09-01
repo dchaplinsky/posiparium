@@ -54,10 +54,12 @@
     width: $w;
     border-radius: 100%;
     overflow: hidden;
+    background: white;
 
     img {
       height: $w;
       width: auto;
+      padding: 5px;
     }
 
     &.no-foto {
@@ -101,6 +103,7 @@
     margin-left: 120px;
     position: relative;
     display: block;
+    min-height: 30px;
 
     span {
       font-weight: bold;
@@ -128,6 +131,13 @@
 
     > div > span {
       font-weight: bold;
+    }
+
+    .date {
+      background: #acacac;
+      font-size: 12px;
+      display: inline-block;
+      margin-top: 5px;
     }
   }
 
