@@ -1,12 +1,13 @@
 {% extends "base.jinja" %}
-
+{% set first_convo = mp.mp2convocation_set.all()|first %}
+{% block title %}{{ mp.name }}, помічники депутата{% if first_convo %}, {{ first_convo.convocation }}{% endif %}{% endblock %}
 {% block body_class %}not-front profile-page{% endblock %}
 
 {% block navigation %}
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTop" aria-controls="navbarTop" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand pt-0" href="#">Posiparium</a>
+    <a class="navbar-brand pt-0" href="/">Посіпаки-2. Мініміньони</a>
 
     <div class="collapse navbar-collapse" id="navbarTop">
         <ul class="navbar-nav mr-auto">

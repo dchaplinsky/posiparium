@@ -5,6 +5,8 @@ from django.forms.models import model_to_dict
 from django.core.urlresolvers import reverse
 from django.db import models
 
+from easy_thumbnails.files import get_thumbnailer
+
 
 def title(s):
     chunks = s.split()
@@ -137,6 +139,9 @@ class MP2Convocation(models.Model):
         m["name"] = self.mp.name
         m["link"] = self.link
         m["id"] = self.mp.id
+        if self.mp.img:
+            m["img_thumbnail"] = get_thumbnailer(self.mp.img)['avatar'].url
+
         m["grouper"] = "%s %s" % (self.convocation_id, self.mp.name)
 
         return m

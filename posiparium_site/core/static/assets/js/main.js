@@ -246,8 +246,8 @@ document.addEventListener(
             var $this = $(this),
                 $item = $this.find('.link_nb');
 
-            if($item.length > 3) {
-                $this.find('.link_nb:nth-child(4)').after("<span class='show-more'>Показати всіх (" + $item.length + ")</span>").nextAll().addClass('hidden');
+            if($item.length > 5) {
+                $this.find('.link_nb:nth-child(6)').after("<span class='show-more'>Показати всіх (" + $item.length + ")</span>").nextAll().addClass('hidden');
             }
         });
 
