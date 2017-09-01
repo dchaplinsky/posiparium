@@ -1,7 +1,7 @@
 {% macro render_pagination(results, url="") %}
     {% if results.paginator.num_pages > 1 %}
     <ul class="pagination">
-        <li class="page-item {% if not results.has_previous() %} disabled{% endif %}"><a href="{{ url }}{% if results.has_previous() %}?{{ updated_querystring(request, {'page': results.previous_page_number()}) }}{% endif %}" class="page-link">Previous</a></li>
+        <li class="page-item {% if not results.has_previous() %} disabled{% endif %}"><a href="{{ url }}{% if results.has_previous() %}?{{ updated_querystring(request, {'page': results.previous_page_number()}) }}{% endif %}" class="page-link">Попереднья</a></li>
         {% for page_num in results.contextual_page_range %}
         {% if page_num == None %}
             <li class="page-item disabled"><span>&hellip;</span></li>
@@ -9,7 +9,7 @@
             <li class="page-item{% if results.number == page_num %} active{% endif %}"><a href="{{ url }}?{{ updated_querystring(request, {'page': page_num}) }}" class="page-link">{{ page_num }}</a></li>
         {% endif %}
         {% endfor %}
-        <li class="page-item {% if not results.has_next() %} disabled{% endif %}"><a href="{{ url }}{% if results.has_next() %}?{{ updated_querystring(request, {'page': results.next_page_number()}) }}{% endif %}" class="page-link">Next</a></li>
+        <li class="page-item {% if not results.has_next() %} disabled{% endif %}"><a href="{{ url }}{% if results.has_next() %}?{{ updated_querystring(request, {'page': results.next_page_number()}) }}{% endif %}" class="page-link">Наступна</a></li>
     </ul>
     {% endif %}
 {% endmacro %}

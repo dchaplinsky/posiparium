@@ -23,13 +23,9 @@
   .jumbotron {
     color: white;
   }
-
 }
 
 .search-grouper-title {
-  //background: $decl-green;
-  //color: white;
-  //padding: 20px 40px;
   margin-bottom: 0;
   font-size: 1.5rem;
 
@@ -57,6 +53,18 @@
 .county-page {
   .jumbotron {
     color: white;
+  }
+
+  .county-header {
+    @media (min-width: 992px) {
+      justify-content: space-between;
+      display: flex;
+
+      > div {
+        flex: 0 0 50%;
+        max-width: 50%;
+      }
+    }
   }
 }
 
