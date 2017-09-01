@@ -12,18 +12,18 @@
                     {% for mp_batch in body.list|groupby('mp.grouper')|batch(2) %}
                         <div class="row">
                         {% for mp in mp_batch %}
-                            {% set first_item = mp.list[0].mp %}
+                            {% set first_item = mp.list[0] %}
                             <div class="small-profile col-lg-6" itemscope="" itemtype="http://schema.org/Person">
-                                <a class="box active-box" href="{{ url('mp_details', first_item.id) }}">
+                                <a class="box active-box" href="{{ url('mp_details', first_item.mp.id) }}">
                                     <header class="profile-header">
-                                        {% if first_item.img_thumbnail %}
+                                        {% if first_item.mp.img_thumbnail %}
                                             <div class="avatar">
-                                                <img class="d-flex align-self-center mr-3 rounded-circle" src="{{ first_item.img_thumbnail }}" alt="{{ first_item.name }}">
+                                                <img class="d-flex align-self-center mr-3 rounded-circle" src="{{ first_item.mp.img_thumbnail }}" alt="{{ first_item.mp.name }}">
                                             </div>
                                         {% else %}
                                             <div class="avatar no-foto"></div>
                                         {% endif %}
-                                        <h3 class="name" itemprop="name">{{ first_item.name }}</h3>
+                                        <h3 class="name" itemprop="name">{{ first_item|highlight("mp.name")|safe }}</h3>
                                     </header>
 
                                     <div class="descr">
@@ -49,7 +49,7 @@
                                     <ul class="posipaky">
                                         <span>Помічники: </span>
                                         {% for minion in mp.list %}
-                                        <li class="link_nb">{{ minion.name }}{% if minion.confirmed %} <span class="radius yellow">{{ minion.confirmed|format_date }}</span>{% endif %}</li>
+                                        <li class="link_nb">{{ minion|highlight("name")|safe }}{% if minion.confirmed %} <span class="radius yellow">{{ minion.confirmed|format_date }}</span>{% endif %}</li>
                                         {% endfor %}
                                     </ul>
                                 </a>

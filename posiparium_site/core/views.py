@@ -152,10 +152,18 @@ def search(request):
     query = request.GET.get("q", "")
 
     if query:
-        results = ElasticMinion.search().query(
-            "multi_match", query=query,
-            operator="and",
-            fields=["mp.name", "name"])
+        results = ElasticMinion.search() \
+            .query(
+                "multi_match", query=query,
+                operator="and",
+                fields=["mp.name", "name"]) \
+            .highlight_options(
+                order='score',
+                fragment_size=500,
+                number_of_fragments=100,
+                pre_tags=['<u class="match">'], post_tags=["</u>"]) \
+            .highlight("mp.name", "name")
+
     else:
         results = ElasticMinion.search().query('match_all')
 

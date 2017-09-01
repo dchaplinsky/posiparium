@@ -1,3 +1,5 @@
+from functools import reduce
+
 from django_jinja import library
 from dateutil.parser import parse
 
@@ -40,3 +42,20 @@ def ukr_plural(value, *args):
 def uk_plural(value, args):
     args = args.split(',')
     return ukr_plural(value, *args)
+
+
+def deepgetattr(obj, attr):
+    """Recurses through an attribute chain to get the ultimate value."""
+
+    try:
+        return reduce(getattr, attr.split('.'), obj)
+    except AttributeError:
+        return None
+
+
+@library.filter
+def highlight(obj, field_name):
+    if hasattr(obj.meta, "highlight") and hasattr(obj.meta.highlight, field_name):
+        return " ".join(getattr(obj.meta.highlight, field_name))
+    else:
+        return deepgetattr(obj, field_name)
