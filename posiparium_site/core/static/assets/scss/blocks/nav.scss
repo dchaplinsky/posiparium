@@ -44,3 +44,22 @@
 .jumbotron {
   border-radius: 0;
 }
+
+.font {
+  .navbar-brand .lead {
+    display: none;
+  }
+}
+
+.not-front {
+  .navbar-brand {
+    text-align: left;
+
+    .lead {
+      font-size: 12px;
+      display: block;
+      text-transform: uppercase;
+      font-family: 'Roboto Condensed', sans-serif;
+    }
+  }
+}

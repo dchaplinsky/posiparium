@@ -41,7 +41,7 @@
 
 
 .nav-tabs {
-  background: #292929;
+  //background: #292929;
   border-top-right-radius: 0.25rem;
   border-top-left-radius: 0.25rem;
   border-bottom: none;
@@ -53,7 +53,7 @@
   }
 
   .nav-item {
-    border-right: #515151 1px solid;
+    border-right: #10c8bb 1px solid;
     border-bottom: none;
     margin-bottom: 0;
 
@@ -61,18 +61,31 @@
       font-size: 14px;
     }
 
-    &:nth-child(1) {
+    &:first-child .nav-link {
+      border-top-left-radius: 0.25rem;
+    }
+
+    &:last-child {
+      border-right: none;
+
       .nav-link {
-        border-top-left-radius: 0.25rem;
+        border-top-right-radius: 0.25rem;
+        border-right: none;
       }
     }
   }
 
   .nav-link {
     opacity: 0.8;
-    //padding: 1em 1.5em;
+    height: 100%;
     font-size: 20px;
     font-weight: bold;
+    background: #5eccc4;
+
+    &:hover {
+      border-color: #37c4ba;
+      background: #37c4ba;
+    }
   }
 
   .nav-link.active,
