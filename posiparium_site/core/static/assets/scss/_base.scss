@@ -121,4 +121,11 @@
 
 .popover-title {
   @include blueGradient();
+  color: white;
+}
+
+.is-touch {
+  .hidden-touch {
+    display: none;
+  }
 }

@@ -1,8 +1,7 @@
-document.addEventListener(
-    "touchstart",
-    function(){},
-    true
-);
+    function is_touch_device() {
+        return 'ontouchstart' in window
+            || navigator.maxTouchPoints;
+    }
 
     function getURLParameters() {
         var url = window.location.href,
@@ -43,7 +42,7 @@ document.addEventListener(
 
                     if (skip !== 1) {
                         $('.popover-dismiss').popover({
-                            //trigger: 'hover',
+                            trigger: 'manual',
                             html: true,
                             placement: 'top',
                             container: 'body',
@@ -60,6 +59,19 @@ document.addEventListener(
 
                                 return popoverHTML;
                             }
+                        }).on("mouseenter", function () {
+                            var _this = this;
+                            $(this).popover("show");
+                            $(".popover").on("mouseleave", function () {
+                                $(_this).popover('hide');
+                            });
+                        }).on("mouseleave", function () {
+                            var _this = this;
+                            setTimeout(function () {
+                                if (!$(".popover:hover").length) {
+                                    $(_this).popover("hide");
+                                }
+                            }, 1000);
                         });
                     }
 
@@ -181,6 +193,10 @@ document.addEventListener(
     $(document).ready(function() {
         if ($('.map').length > 0) {
             populateUaMap();
+        }
+
+        if (is_touch_device()) {
+            $('html').addClass('is-touch');
         }
 
         updateSearchForm();
