@@ -1,0 +1,59 @@
+{% extends "base.jinja" %}
+{% block title %}{{ minion.name }}, помічник депутата{% endblock %}
+{% block body_class %}not-front profile-page{% endblock %}
+
+{% block navigation %}
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTop" aria-controls="navbarTop" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand pt-0" href="/">Посіпаки-2. Мініміньони <span class="lead">База помічників регіональних депутатів</span></a>
+
+    <div class="collapse navbar-collapse" id="navbarTop">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdownR" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Регіони</a>
+                <div class="dropdown-menu" aria-labelledby="dropdownR">
+                    {% for region in all_regions %}
+                        <a class="dropdown-item" href="{{ region.get_absolute_url() }}">{{ region.name }}</a>
+                    {% endfor %}
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Ще шось</a>
+            </li>
+            <li class="nav-item">
+                {% include "_search_form.jinja" %}
+            </li>
+        </ul>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <section class="jumbotron bg-yellow">
+        <div class="container">
+            <div class="media">
+                <div class="media-body align-self-center">
+                    <h1 class="mt-0 mb-3">{{ minion.name }}</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="profile">
+        <div class="container" itemscope="" itemtype="http://schema.org/Person">
+            <span itemprop="name" class="hide">{{ minion.name }}</span>
+            <span itemprop="jobTitle" class="hide">Помічних депутата</span>
+            <link itemprop="url" href="{{ minion.get_absolute_url() }}">
+
+            <div class="tab-content">
+                Був помічником у:
+                <ul>
+                {% for mp in minion.mp.all() %}
+                    <li>{{ mp.mp.name }}, {{ mp.party }},
+                    {{ mp.convocation.number }}, {{ mp.convocation.office.name }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </section>
+{% endblock %}

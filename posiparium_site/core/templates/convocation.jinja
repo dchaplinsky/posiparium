@@ -1,0 +1,26 @@
+{% extends "base.jinja" %}
+{% block body_class %}not-front county-page{% endblock %}
+
+{% block title %}Помічники депутатів {{ convocation.number }} скликання {{ convocation.office.name }}{% endblock %}
+
+{% block content %}
+    <section class="jumbotron bg-yellow pb-1 pt-4">
+        <div class="container">
+
+            <h1>{{ convocation.office.name }}. Помічники депутатів {{ convocation.number }} скликання</h1>
+
+            {% include "_search_form.jinja" %}
+
+            <div class="county-header">
+                <div>
+                    {% for conv in convocations %}
+                        <p>скликання {{ conv.number }}, {{ conv.year_from }}-{{ conv.year_to }}, Депутатів: {{ conv.num_mps }}, Помічників: {{ conv.num_minions }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% set ignore_grouper = True %}
+    {% include "_search_results.jinja" %}
+{% endblock %}

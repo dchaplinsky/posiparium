@@ -165,23 +165,25 @@ class Command(BaseCommand):
                         )
 
                         if minion:
-                            try:
-                                minion_model, minion_created = Minion.objects.get_or_create(
-                                    name__iexact=minion,
-                                    mp__convocation__office__region__pk=region_model.pk,
-                                    defaults={
-                                        "name": minion
-                                    }
-                                )
+                            minion_created = False
+                            minions_qs = Minion.objects.filter(
+                                name__iexact=minion,
+                                mp__convocation__office__region__pk=region_model.pk,
+                            ).distinct()
 
-                                if not minion_created:
-                                    self.stdout.write(
-                                        "Reused one minion {}, {}, {}".format(
-                                            file, minion, office))
-
-                            except Minion.MultipleObjectsReturned:
+                            if not minions_qs:
+                                minion_model = Minion.objects.create(name=minion)
+                                minion_created = True
+                            elif minions_qs.count() > 1:
                                 self.stderr.write("Shite, too much minions {}, {}, {}".format(file, minion, office))
                                 break
+                            else:
+                                minion_model = minions_qs[0]
+
+                            if not minion_created:
+                                self.stdout.write(
+                                    "Reused one minion {}, {}, {}".format(
+                                        file, minion, office))
 
                             minion2mp2conv_model, _ = Minion2MP2Convocation.objects.get_or_create(
                                 mp2convocation=mp2conv_model,

@@ -1,70 +1,69 @@
-    {% from "_pagination.jinja" import render_pagination with context %}
+{% from "_pagination.jinja" import render_pagination with context %}
 
-    <section class="search-results">
-        <div class="container">
-            {% set region = "" %}
-            {% set body = "" %}
-            {% for region in search_results|groupby('region') %}
-                <h2 class="search-grouper-title region-grouper">{{ region.grouper }}</h2>
-                {% for body in region.list|groupby('body') %}
-                    <h3 class="search-grouper-title body-grouper">{{ body.grouper }}</h3>
+<section class="search-results">
+    <div class="container">
+        {% for region in search_results|groupby('region') %}
+            {% for body in region.list|groupby('body') %}
+                {% if not ignore_grouper %}
+                <h2 class="search-grouper-title body-grouper">{{ body.grouper }}</h2>
+                {% endif %}
 
-                    {% for mp_batch in body.list|groupby('mp.grouper')|batch(2) %}
-                        <div class="row">
-                        {% for mp in mp_batch %}
-                            {% set first_item = mp.list[0] %}
-                            <div class="small-profile col-lg-6" itemscope="" itemtype="http://schema.org/Person">
-                                <a class="box active-box" href="{{ url('mp_details', first_item.mp.id) }}">
-                                    <header class="profile-header">
-                                        {% if first_item.mp.img_thumbnail %}
-                                            <div class="avatar">
-                                                <img class="d-flex align-self-center mr-3 rounded-circle" src="{{ first_item.mp.img_thumbnail }}" alt="{{ first_item.mp.name }}">
-                                            </div>
-                                        {% else %}
-                                            <div class="avatar no-foto"></div>
-                                        {% endif %}
-                                        <h3 class="name" itemprop="name">{{ first_item|highlight("mp.name")|safe }}</h3>
-                                    </header>
-
-                                    <div class="descr">
-                                    {% if first_item.party %}
-                                        <div>
-                                            <span>Партія:</span> {{ first_item.party }}
+                {% for mp_batch in body.list|groupby('mp.grouper')|batch(2) %}
+                    <div class="row">
+                    {% for mp in mp_batch %}
+                        {% set first_item = mp.list[0] %}
+                        <div class="small-profile col-lg-6" itemscope="" itemtype="http://schema.org/Person">
+                            <a class="box active-box" href="{{ url('mp_details', first_item.mp.id) }}">
+                                <header class="profile-header">
+                                    {% if first_item.mp.img_thumbnail %}
+                                        <div class="avatar">
+                                            <img class="d-flex align-self-center mr-3 rounded-circle" src="{{ first_item.mp.img_thumbnail }}" alt="{{ first_item.mp.name }}">
                                         </div>
+                                    {% else %}
+                                        <div class="avatar no-foto"></div>
                                     {% endif %}
+                                    <h3 class="name" itemprop="name">{{ first_item|highlight("mp.name")|safe }}</h3>
+                                </header>
 
-                                    {% if first_item.fraction %}
-                                        <div>
-                                            <span>Фракція:</span> {{ first_item.fraction }}
-                                        </div>
-                                    {% endif %}
-
-                                    {% if first_item.comission %}
-                                        <div>
-                                            <span>Комісія</span> {{ first_item.comission }}
-                                        </div>
-                                    {% endif %}
+                                <div class="descr">
+                                {% if first_item.party %}
+                                    <div>
+                                        <span>Партія:</span> {{ first_item.party }}
                                     </div>
+                                {% endif %}
 
-                                    <ul class="posipaky">
-                                        <span>Помічники: </span>
-                                        {% for minion in mp.list %}
-                                        <li class="link_nb">{{ minion|highlight("name")|safe }}{% if minion.confirmed %} <span class="date">{{ minion.confirmed|format_date }}</span>{% endif %}</li>
-                                        {% endfor %}
-                                    </ul>
-                                </a>
-                            </div>
-                        {% endfor %}
+                                {% if first_item.fraction %}
+                                    <div>
+                                        <span>Фракція:</span> {{ first_item.fraction }}
+                                    </div>
+                                {% endif %}
+
+                                {% if first_item.comission %}
+                                    <div>
+                                        <span>Комісія</span> {{ first_item.comission }}
+                                    </div>
+                                {% endif %}
+                                </div>
+
+                                <ul class="posipaky">
+                                    <span>Помічники: </span>
+                                    {% for minion in mp.list %}
+                                    <li class="link_nb"><a href="{{ url("minion_details", minion.id) }}">{{ minion|highlight("name")|safe }}</a>{% if minion.confirmed %} <span class="date">{{ minion.confirmed|format_date }}</span>{% endif %}</li>
+                                    {% endfor %}
+                                </ul>
+                            </a>
                         </div>
                     {% endfor %}
+                    </div>
                 {% endfor %}
             {% endfor %}
+        {% endfor %}
 
-            {% if search_results.paginator.num_pages > 1 %}
-            <nav>
-                {{ render_pagination(search_results, "") }}
-            </nav>
-            {% endif %}
+        {% if search_results.paginator.num_pages > 1 %}
+        <nav>
+            {{ render_pagination(search_results, "") }}
+        </nav>
+        {% endif %}
 
-        </div>
-    </section>
+    </div>
+</section>

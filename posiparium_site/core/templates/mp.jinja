@@ -83,7 +83,7 @@
                         <ul class="wrap_block cf">
                             {% for minion_link in convo.minion2mp2convocation_set.all() %}
                                 <li class="link_nb">
-                                    <h2 itemprop="name">{{ minion_link.minion.name }}</h2>
+                                    <h2 itemprop="name"><a href="{{ minion_link.minion.get_absolute_url() }}">{{ minion_link.minion.name }}</a></h2>
                                     <span itemprop="jobTitle" class="hide">Помічник депутата</span>
                                     {% if minion_link.confirmed %}
                                         <span class="radius yellow">{{ minion_link.confirmed|format_date }}</span>
