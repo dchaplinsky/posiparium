@@ -7,7 +7,7 @@
         <div class="container">
             <div class="intro text-sm-center">
                 <h1>Посіпаки-2. Мініміньони</h1>
-                <p class="lead">Помічники народних депутатів</p>
+                <p class="lead">База помічників регіональних депутатів</p>
                 <p class="small">Відкрита база даних помічників народних депутатів України створена на основі офіційної інформації Апарату Верховної Ради України.</p>
             </div>
 
@@ -23,8 +23,10 @@
 
     <section class="map" id="ua-map">
         <div class="container">
-            <h5 class="text-sm-center">По регіонам</h5>
-            {% include "_svg_map.jinja" %}
+            <div class="hidden-touch">
+                <h5 class="text-sm-center">По регіонам</h5>
+                {% include "_svg_map.jinja" %}
+            </div>
 
             <table id="ua-map-table" class="table table-striped table-bordered dataTable"></table>
 

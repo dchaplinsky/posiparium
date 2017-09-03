@@ -1,45 +1,7 @@
-document.addEventListener(
-    "touchstart",
-    function(){},
-    true
-);
-
-
-    //two-way-binding 'dropdown as select' and intput field
-    //eg.: <ul class="dropdown-as-select" data-linked-input="someID">
-    //     <li><a href="#" data-value="value">value</a></li>
-    //..
-    //<input id="someID" class="linked-input" value="value" />
-    $(".dropdown-as-select li a").click(function(){
-        var $dropdown = $(this).parents(".dropdown"),
-            $dropdownButton = $dropdown.find('.btn'),
-            $linkedInput = $('#' + $(this).parents(".dropdown-as-select").data('linked-input'));
-
-        $dropdownButton.html($(this).text() + ' <span class="caret"></span>');
-        $dropdownButton.val($(this).data('value'));
-        $linkedInput.val($(this).data('value'));
-
-        $dropdown.find('li').removeClass('selected');
-        $(this).parent('li').addClass('selected');
-    });
-
-    function setDropdownsValue() {
-        var $linkedInputs = $('.linked-input');
-
-        $linkedInputs.each(function( index ) {
-            var $this = $(this),
-                id = $this.attr('id'),
-                value = $this.val(),
-                $dropdownAsSelect = $("[data-linked-input='" + id + "']"),
-                $link = $dropdownAsSelect.find("[data-value='" + value + "']");
-
-            if ($link.length > 0) {
-                $dropdownAsSelect.find('li').removeClass('selected');
-                $link.parent('li').addClass('selected');
-                $link.click();
-            }
-        });
-    }//end of two-way-binding 'dropdown as select' and intput field
+    function is_touch_device() {
+        return 'ontouchstart' in window
+            || navigator.maxTouchPoints;
+    }
 
     function getURLParameters() {
         var url = window.location.href,
@@ -54,81 +16,6 @@ document.addEventListener(
             result[i] = decodeURIComponent(sURLVariables[i].replace(/\+/g, '%20'));
         }
         return result;
-    }
-
-    function setExFormStateFromUrl() {
-        var urlParams = getURLParameters(),
-            usedParams = 0;
-        for (var i = 0; i < urlParams.length; i++) {
-            var sParameter = urlParams[i].split('='),
-                sValue = sParameter[1],
-                sName = sParameter[0];
-
-            if(sValue.length > 0) {
-                if(sName === 'post_type') {
-                    $('input[value="' + sValue + '"]').prop('checked', true);
-                    usedParams++;
-                }
-
-                if(sName === 'region_type') {
-                    $('input[value="' + sValue + '"]').prop('checked', true);
-                    usedParams++;
-                }
-
-                if(sName === 'region_value') {
-                    $('input[name="region_value"]').val(sValue);
-                    usedParams++
-                }
-
-                if(sName === 'declaration_year')  {
-                    $('input[name="declaration_year"]').val(sValue);
-                    usedParams++
-                }
-
-                if(sName === 'doc_type') {
-                    $('input[name="doc_type"]').val(sValue);
-                    usedParams++
-                }
-            }
-        }
-
-        if(window.location.hash) {
-            var hash = window.location.hash.substring(1); //Puts hash in variable, and removes the # character
-
-            if(hash === 'exsearch') {
-                usedParams++;
-            }
-        }
-
-        if(usedParams > 0) {
-            $('#ex-search-form').addClass('ex-search');
-            $('#collapseExSearch').addClass('in');
-            $(".ex-search-link").attr("aria-expanded","true");
-        }
-
-        $(".ex-search-link").click(function(){
-            $(this).hide(400);
-        });
-
-        $(document).on('click', '#clear-filters', function(){
-            $('input[name="region_value"]').val('');
-            setDropdownsValue();
-            $(":checked").prop('checked', false);
-        });
-
-        $(document).on('submit', '#ex-form', function(){
-            if (!$('input[name="declaration_year"]').val()) {
-                $('input[name="declaration_year"]').remove();
-            }
-
-            if (!$('input[name="doc_type"]').val()) {
-                $('input[name="doc_type"]').remove();
-            }
-
-            if (!$('input[name="region_value"]').val()) {
-                $('input[name="region_value"]').remove();
-            }
-        });
     }
 
     function populateUaMap() {
@@ -155,7 +42,7 @@ document.addEventListener(
 
                     if (skip !== 1) {
                         $('.popover-dismiss').popover({
-                            //trigger: 'hover',
+                            trigger: 'manual',
                             html: true,
                             placement: 'top',
                             container: 'body',
@@ -172,6 +59,19 @@ document.addEventListener(
 
                                 return popoverHTML;
                             }
+                        }).on("mouseenter", function () {
+                            var _this = this;
+                            $(this).popover("show");
+                            $(".popover").on("mouseleave", function () {
+                                $(_this).popover('hide');
+                            });
+                        }).on("mouseleave", function () {
+                            var _this = this;
+                            setTimeout(function () {
+                                if (!$(".popover:hover").length) {
+                                    $(_this).popover("hide");
+                                }
+                            }, 1000);
                         });
                     }
 
@@ -235,6 +135,23 @@ document.addEventListener(
             });
     }
 
+    function updateSearchForm() {
+        var urlParams = getURLParameters();
+
+        for (var i = 0; i < urlParams.length; i++) {
+            var sParameter = urlParams[i].split('='),
+                sValue = sParameter[1],
+                sName = sParameter[0];
+
+            if (sValue.length > 0 && sName === 'q') {
+                if(sValue.length > 50)  {
+                    sValue = sValue.substring(0,50) + '...'
+                }
+                $('.search-string').html(': ' + sValue);
+            }
+        }
+    }
+
     $(document).on('show.bs.popover', function() {
         $('.popover').not(this).popover('hide');
     });
@@ -269,9 +186,8 @@ document.addEventListener(
         });
     }
 
-    $(document).on('click', '.inner-search-button', function(e){
-        e.preventDefault();
-        $('body').addClass('open-search');
+    $('.searchbox button').click(function() {
+        $('.searchbox form').submit();
     });
 
     $(document).ready(function() {
@@ -279,8 +195,11 @@ document.addEventListener(
             populateUaMap();
         }
 
-        setExFormStateFromUrl();
-        setDropdownsValue();
+        if (is_touch_device()) {
+            $('html').addClass('is-touch');
+        }
+
+        updateSearchForm();
         wrapPosipakyList();
 
         $(".search-name").typeahead({
@@ -307,6 +226,3 @@ document.addEventListener(
             }
         });
     });
-
-
-

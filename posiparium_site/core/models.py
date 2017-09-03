@@ -91,6 +91,11 @@ class Convocation(models.Model):
     def __str__(self):
         return self.__unicode__()
 
+    def get_absolute_url(self):
+        return reverse("convocation", kwargs={
+            "county_slug": self.office.region.slug, "convocation_id": self.pk
+        })
+
     class Meta:
         verbose_name = "Скликання"
         verbose_name_plural = "Скликання"
@@ -167,6 +172,7 @@ class Minion2MP2Convocation(models.Model):
         d = model_to_dict(self, fields=["confirmed"])
 
         d["mp"] = self.mp2convocation.to_dict()
+        d["minion_id"] = self.minion_id
         d["convocation"] = self.mp2convocation.convocation.number
         d["convocation_id"] = self.mp2convocation.convocation.pk
         d["body"] = self.mp2convocation.convocation.office.name
@@ -219,3 +225,6 @@ class Minion(models.Model):
 
     def __str__(self):
         return self.__unicode__()
+
+    def get_absolute_url(self):
+        return reverse("minion_details", kwargs={"minion_id": self.pk})

@@ -1,5 +1,6 @@
 .small-profile {
   float: left;
+  position: relative;
 
   .box {
     position: relative;
@@ -40,12 +41,20 @@
     }
   }
 
+  $w: 100px;
+
   .profile-header {
     position: relative;
     z-index: 1;
-  }
 
-  $w: 100px;
+    a:hover {
+      text-decoration: none;
+
+      .avatar img {
+        height: $w + 20;
+      }
+    }
+  }
 
   .avatar {
     float: left;
@@ -54,10 +63,18 @@
     width: $w;
     border-radius: 100%;
     overflow: hidden;
+    background: white;
+    position: relative;
 
     img {
       height: $w;
       width: auto;
+      padding: 5px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      transition: all 0.3s linear;
     }
 
     &.no-foto {
@@ -89,6 +106,11 @@
     text-transform: uppercase;
     min-height: 62px;
 
+    .match {
+      background: $minion-red;
+      text-decoration: none;
+    }
+
     .pib {
       font-size: 20px;
       display: block;
@@ -101,6 +123,7 @@
     margin-left: 120px;
     position: relative;
     display: block;
+    min-height: 30px;
 
     span {
       font-weight: bold;
@@ -122,6 +145,11 @@
     padding-left: 0;
     margin-top: 10px;
 
+    .match {
+      background: #fcf900;
+      text-decoration: none;
+    }
+
     > span {
       font-weight: bold;
     }
@@ -129,11 +157,27 @@
     > div > span {
       font-weight: bold;
     }
+
+    .date {
+      background: #acacac;
+      font-size: 9px;
+      display: inline-block;
+      opacity: 0.5;
+      padding: 1px 5px;
+    }
+
+    .link_nb:nth-child(odd) {
+      .date {
+        background: white;
+        color: $text;
+        opacity: 0.8;
+      }
+    }
   }
 
-  &.open {
+  &.open,
+  &:hover {
     @media (min-width: 992px) {
-      position: absolute;
       z-index: 11;
     }
 
@@ -148,24 +192,11 @@
         display: none;
       }
     }
-
-    + .small-profile {
-      @media (min-width: 992px) {
-        margin-left: 50%;
-      }
-    }
-
   }
 }
 
 .row {
   .small-profile:last-child {
-    &.open {
-      @media (min-width: 992px) {
-        margin-left: 50%;
-      }
-    }
-
     @media (max-width: 991px) {
       margin-top: 40px;
     }

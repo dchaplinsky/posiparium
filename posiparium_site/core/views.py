@@ -1,15 +1,14 @@
 from operator import itemgetter
-from collections import Counter
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseBadRequest
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Count
-from django.forms.models import model_to_dict
 
 from core.elastic_models import Minion as ElasticMinion
 from core.models import (
-    County, Convocation, Minion, MemberOfParliament, MP2Convocation,
-    Minion2MP2Convocation)
-from core.paginator import paginated, DjangoPageRangePaginator
+    County, Convocation, MemberOfParliament, Minion2MP2Convocation,
+    Minion
+)
+from core.paginator import paginated
 
 
 def unique(source):
@@ -137,14 +136,45 @@ def county(request, county_slug):
     return render(request, "county.jinja", {
         "region": region,
         "convocations": Convocation.objects.select_related(
-            "office").filter(office__region=region).order_by("office").annotate(
+            "office", "office__region").filter(office__region=region).order_by(
+            "office").annotate(
                 num_mps=Count('mp2convocation', distinct=True),
                 num_minions=Count('mp2convocation__minion')
         ),
 
         "search_results": paginated(
             request, results.sort(
-                'body', 'region', 'mp.grouper', 'name.raw'), cnt=30),
+                'body', 'region', 'mp.grouper', 'name.raw')),
+    })
+
+
+def convocation(request, county_slug, convocation_id):
+    region = get_object_or_404(County, slug=county_slug)
+    try:
+        convocation = get_object_or_404(
+            Convocation,
+            pk=int(convocation_id),
+            office__region=region
+        )
+    except ValueError:
+        return HttpResponseBadRequest()
+
+    results = ElasticMinion.search().query(
+        "term", convocation_id=convocation.pk)
+
+    return render(request, "convocation.jinja", {
+        "region": region,
+        "convocation": convocation,
+        "convocations": Convocation.objects.select_related(
+            "office", "office__region").filter(pk=convocation.pk).annotate(
+                num_mps=Count('mp2convocation', distinct=True),
+                num_minions=Count('mp2convocation__minion')
+        ),
+
+
+        "search_results": paginated(
+            request, results.sort(
+                'body', 'region', 'mp.grouper', 'name.raw')),
     })
 
 
@@ -179,4 +209,12 @@ def mp(request, mp_id):
 
     return render(request, "mp.jinja", {
         "mp": mp
+    })
+
+
+def minion(request, minion_id):
+    minion = get_object_or_404(Minion, pk=minion_id)
+
+    return render(request, "minion.jinja", {
+        "minion": minion
     })

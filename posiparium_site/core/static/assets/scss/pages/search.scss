@@ -26,15 +26,12 @@
 }
 
 .search-grouper-title {
-  //background: $decl-green;
-  //color: white;
-  //padding: 20px 40px;
   margin-bottom: 0;
   font-size: 1.5rem;
 
   &.body-grouper {
     font-size: 1.25rem;
-    padding: 10px 40px;
+    padding: 10px 0;
   }
 }
 
@@ -52,10 +49,3 @@
     }
   }
 }
-
-.county-page {
-  .jumbotron {
-    color: white;
-  }
-}
-

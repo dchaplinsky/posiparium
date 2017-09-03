@@ -121,35 +121,49 @@ class Command(BaseCommand):
                             }
                         )
 
-                        mp_model, mp_created = MemberOfParliament.objects.get_or_create(
+                        mp_created = False
+                        mps_qs = MemberOfParliament.objects.filter(
                             name__iexact=mp_name,
-                            convocations__office__region=region_model,
-                            defaults={
-                                "name": mp_name
-                            }
-                        )
+                            convocations__office__region=region_model
+                        ).distinct()
+
+                        if not mps_qs:
+                            mp_model = MemberOfParliament.objects.create(name=mp_name)
+                            mp_created = True
+                        elif mps_qs.count() > 1:
+                            self.stderr.write("Shite, too much mps {}, {}, {}".format(file, mp_name, office))
+                            break
+                        else:
+                            mp_model = mps_qs[0]
+
                         if not mp_created:
                             self.stdout.write(
                                 "Reused one mp {}, {}, {}".format(
                                     file, mp_name, office))
 
                         if photo and not mp_model.img:
-                            resp = requests.get(
-                                photo,
-                                headers={"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/10.1.2 Safari/603.3.8"}
-                            )
+                            try:
+                                resp = requests.get(
+                                    photo,
+                                    headers={"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/10.1.2 Safari/603.3.8"},
+                                    timeout=10
+                                )
 
-                            if resp.status_code != 200:
+                                if resp.status_code != 200:
+                                    self.stderr.write("Cannot download image %s for %s" % (
+                                        photo,
+                                        mp_model.name
+                                    ))
+
+                                mp_model.img.save(
+                                    translitua(mp_model.name) + ".jpg", ContentFile(resp.content))
+
+                                mp_model.save()
+                            except (requests.exceptions.ConnectionError, requests.exceptions.ReadTimeout):
                                 self.stderr.write("Cannot download image %s for %s" % (
                                     photo,
                                     mp_model.name
                                 ))
-                                continue
-
-                            mp_model.img.save(
-                                translitua(mp_model.name) + ".jpg", ContentFile(resp.content))
-
-                            mp_model.save()
                         else:
                             self.stdout.write("Image for %s already exists" % mp_model.name)
 
@@ -165,23 +179,25 @@ class Command(BaseCommand):
                         )
 
                         if minion:
-                            try:
-                                minion_model, minion_created = Minion.objects.get_or_create(
-                                    name__iexact=minion,
-                                    mp__convocation__office__region__pk=region_model.pk,
-                                    defaults={
-                                        "name": minion
-                                    }
-                                )
+                            minion_created = False
+                            minions_qs = Minion.objects.filter(
+                                name__iexact=minion,
+                                mp__convocation__office__region__pk=region_model.pk,
+                            ).distinct()
 
-                                if not minion_created:
-                                    self.stdout.write(
-                                        "Reused one minion {}, {}, {}".format(
-                                            file, minion, office))
-
-                            except Minion.MultipleObjectsReturned:
+                            if not minions_qs:
+                                minion_model = Minion.objects.create(name=minion)
+                                minion_created = True
+                            elif minions_qs.count() > 1:
                                 self.stderr.write("Shite, too much minions {}, {}, {}".format(file, minion, office))
                                 break
+                            else:
+                                minion_model = minions_qs[0]
+
+                            if not minion_created:
+                                self.stdout.write(
+                                    "Reused one minion {}, {}, {}".format(
+                                        file, minion, office))
 
                             minion2mp2conv_model, _ = Minion2MP2Convocation.objects.get_or_create(
                                 mp2convocation=mp2conv_model,

@@ -12,10 +12,12 @@
 
             <div class="county-header">
                 {% for office in convocations|groupby('office.name') %}
-                    <h2>{{ office.grouper }}:</h2>
-                    {% for conv in office.list %}
-                        <p>скликання {{ conv.number }}, {{ conv.year_from }}-{{ conv.year_to }}, Депутатів: {{ conv.num_mps }}, Помічників: {{ conv.num_minions }} </p>
-                    {% endfor %}
+                    <div>
+                        <h2>{{ office.grouper }}:</h2>
+                        {% for conv in office.list %}
+                            <p><a href="{{ conv.get_absolute_url() }}" title="Фільтрувати за скликанням"><i class="icon ion-funnel"></i> {{ conv.number }}-е скликання, {{ conv.year_from }}-{{ conv.year_to }}, Депутатів: {{ conv.num_mps }}, Помічників: {{ conv.num_minions }}</a></p>
+                        {% endfor %}
+                    </div>
                 {% endfor %}
             </div>
         </div>
