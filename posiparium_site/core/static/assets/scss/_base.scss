@@ -174,3 +174,87 @@
     display: none;
   }
 }
+
+.jumbotron {
+  position: relative;
+}
+
+.bg-minions {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+
+  .bg-minions-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+
+    &:before,
+    &:after {
+      content: '';
+      display: block;
+      width: 500px;
+      max-width: 45%;
+      position: absolute;
+      top: -64px;
+      opacity: 0.33;
+      height: -webkit-calc(100% + 64px);
+      height:    -moz-calc(100% + 64px);
+      height:         calc(100% + 64px);
+    }
+
+    &:before {
+      background: url('../images/minions-header-left.png') no-repeat center left;
+      background-size: contain;
+      left: 0;
+      right: auto;
+    }
+
+    &:after {
+      background: url('../images/minions-header-right.png') no-repeat center right;
+      background-size: contain;
+      left: auto;
+      right: 0;
+    }
+  }
+}
+
+.not-front {
+  .bg-minions .bg-minions-container:before {
+    display: none;
+  }
+}
+
+.main-content {
+  position: relative;
+
+  &:before,
+  &:after {
+    content: '';
+    display: block;
+    width: 284px;
+    height: 253px;
+    position: absolute;
+    top: auto;
+    bottom: -80px;
+    opacity: 0.1;
+    z-index: -1;
+
+  }
+
+  &:before {
+    background: url('../images/minion-left.png') no-repeat center left;
+    background-size: contain;
+    left: 0;
+    right: auto;
+  }
+
+  &:after {
+    background: url('../images/minion-right.png') no-repeat center right;
+    background-size: contain;
+    left: auto;
+    right: 0;
+  }
+}
