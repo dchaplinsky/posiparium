@@ -137,26 +137,25 @@ class Command(BaseCommand):
                             try:
                                 resp = requests.get(
                                     photo,
-                                    headers={"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/10.1.2 Safari/603.3.8"}
+                                    headers={"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/10.1.2 Safari/603.3.8"},
+                                    timeout=10
                                 )
-                            except requests.exceptions.ConnectionError:
+
+                                if resp.status_code != 200:
+                                    self.stderr.write("Cannot download image %s for %s" % (
+                                        photo,
+                                        mp_model.name
+                                    ))
+
+                                mp_model.img.save(
+                                    translitua(mp_model.name) + ".jpg", ContentFile(resp.content))
+
+                                mp_model.save()
+                            except (requests.exceptions.ConnectionError, requests.exceptions.ReadTimeout):
                                 self.stderr.write("Cannot download image %s for %s" % (
                                     photo,
                                     mp_model.name
                                 ))
-                                continue
-
-                            if resp.status_code != 200:
-                                self.stderr.write("Cannot download image %s for %s" % (
-                                    photo,
-                                    mp_model.name
-                                ))
-                                continue
-
-                            mp_model.img.save(
-                                translitua(mp_model.name) + ".jpg", ContentFile(resp.content))
-
-                            mp_model.save()
                         else:
                             self.stdout.write("Image for %s already exists" % mp_model.name)
 
