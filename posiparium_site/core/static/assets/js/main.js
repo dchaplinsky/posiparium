@@ -30,51 +30,64 @@
 
                 $svgPaths.each(function( index ) {
                     var $this = $(this),
-                        id = $this.attr('id'),
-                        skip = $this.data('skip');
+                        id = $this.attr('id');
 
                     for(var i=0; i< data.length; i++) {
-                        if (id == data[i].slug && skip !== 1) {
+                        if (id == data[i].slug) {
                             $this.attr('data-oblast', data[i].name ).attr('data-pep', data[i].num_mps ).attr('data-posipak', data[i].num_minions ).attr('data-url', data[i].url );
                             $this.addClass('popover-dismiss').css('cursor', 'pointer');
                         }
                     }
 
-                    if (skip !== 1) {
-                        $('.popover-dismiss').popover({
-                            trigger: 'manual',
-                            html: true,
-                            placement: 'top',
-                            container: 'body',
-                            animation: false,
-                            title: function() {
-                                var popoverHTML = $(this).data('oblast');
-                                return popoverHTML;
-                            },
-                            content: function() {
-                                var popoverHTML = '<a href="' + $(this).data('url') + '">' +
-                                    '<p>Депутатів: ' +  $(this).data('pep') + '</p>'
-                                    +  '<p>Помічників: ' +  $(this).data('posipak')  + '</p>'
-                                    + '</a>' ;
-
-                                return popoverHTML;
-                            }
-                        }).on("mouseenter", function () {
-                            var _this = this;
-                            $(this).popover("show");
-                            $(".popover").on("mouseleave", function () {
-                                $(_this).popover('hide');
-                            });
-                        }).on("mouseleave", function () {
-                            var _this = this;
-                            setTimeout(function () {
-                                if (!$(".popover:hover").length) {
-                                    $(_this).popover("hide");
-                                }
-                            }, 1000);
-                        });
+                    if($this.data('egg')) {
+                        $this.addClass('egg-popover-dismiss').css('cursor', 'pointer');
                     }
+                    
+                    $('.popover-dismiss').popover({
+                        trigger: 'manual',
+                        html: true,
+                        placement: 'top',
+                        container: 'body',
+                        animation: false,
+                        title: function() {
+                            return $(this).data('oblast');
+                        },
+                        content: function() {
+                            var popoverHTML = '<a href="' + $(this).data('url') + '">' +
+                                '<p>Депутатів: ' +  $(this).data('pep') + '</p>'
+                                +  '<p>Помічників: ' +  $(this).data('posipak')  + '</p>'
+                                + '</a>' ;
 
+                            return popoverHTML;
+                        }
+                    }).on("mouseenter", function () {
+                        var _this = this;
+                        $(this).popover("show");
+                        $(".popover").on("mouseleave", function () {
+                            $(_this).popover('hide');
+                        });
+                    }).on("mouseleave", function () {
+                        var _this = this;
+                        setTimeout(function () {
+                            if (!$(".popover:hover").length) {
+                                $(_this).popover("hide");
+                            }
+                        }, 1000);
+                    });
+
+                    $('.egg-popover-dismiss').popover({
+                        trigger: 'hover',
+                        html: true,
+                        placement: 'top',
+                        container: 'body',
+                        animation: false,
+                        title: function() {
+                            return 'Посіпаки-2:';
+                        },
+                        content: function() {
+                            return $(this).data('egg');
+                        }
+                    });
                 });
 
                 for(var i=0; i<data.length; i++) {
@@ -124,7 +137,7 @@
                     }]
                 });
 
-                $('#ua-map svg path[data-oblast][data-oblast!=""]').on({
+                $('#ua-map svg path[data-oblast][data-oblast!=""], #ua-map svg path[data-egg][data-egg!=""]').on({
                     mouseenter: function () {
                         $(this).attr('fill', '#f5b351');
                     },

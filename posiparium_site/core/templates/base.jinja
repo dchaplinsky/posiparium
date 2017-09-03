@@ -49,8 +49,10 @@
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
 
-    {% block content %}
-    {% endblock %}
+    <div class="main-content">
+        {% block content %}
+        {% endblock %}
+    </div>
 
     <footer id="footer" class="footer footer-static footer-light navbar-border">
         <div class="footer-container">

@@ -1,10 +1,11 @@
 {% extends "base.jinja" %}
-{% block body_class %}not-front county-page{% endblock %}
+{% block body_class %}not-front county-page county-{{ region.slug }}{% endblock %}
 
 {% block title %}{{ region.name}}, помічники депутатів обласної та міської ради{% endblock %}
 
 {% block content %}
     <section class="jumbotron bg-yellow pb-1 pt-4">
+        <div class="bg-minions"><div class="bg-minions-container"></div></div>
         <div class="container">
             <h1>{{ region.name }}</h1>
 
