@@ -121,13 +121,21 @@ class Command(BaseCommand):
                             }
                         )
 
-                        mp_model, mp_created = MemberOfParliament.objects.get_or_create(
+                        mp_created = False
+                        mps_qs = MemberOfParliament.objects.filter(
                             name__iexact=mp_name,
-                            convocations__office__region=region_model,
-                            defaults={
-                                "name": mp_name
-                            }
-                        )
+                            convocations__office__region=region_model
+                        ).distinct()
+
+                        if not mps_qs:
+                            mp_model = MemberOfParliament.objects.create(name=mp_name)
+                            mp_created = True
+                        elif mps_qs.count() > 1:
+                            self.stderr.write("Shite, too much mps {}, {}, {}".format(file, mp_name, office))
+                            break
+                        else:
+                            mp_model = mps_qs[0]
+
                         if not mp_created:
                             self.stdout.write(
                                 "Reused one mp {}, {}, {}".format(
