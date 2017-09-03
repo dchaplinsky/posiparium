@@ -41,12 +41,20 @@
     }
   }
 
+  $w: 100px;
+
   .profile-header {
     position: relative;
     z-index: 1;
-  }
 
-  $w: 100px;
+    a:hover {
+      text-decoration: none;
+
+      .avatar img {
+        height: $w + 20;
+      }
+    }
+  }
 
   .avatar {
     float: left;
@@ -56,11 +64,17 @@
     border-radius: 100%;
     overflow: hidden;
     background: white;
+    position: relative;
 
     img {
       height: $w;
       width: auto;
       padding: 5px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      transition: all 0.3s linear;
     }
 
     &.no-foto {
@@ -148,9 +162,16 @@
       background: #acacac;
       font-size: 9px;
       display: inline-block;
-      margin-top: 4px;
-      opacity: 0.4;
+      opacity: 0.5;
       padding: 1px 5px;
+    }
+
+    .link_nb:nth-child(odd) {
+      .date {
+        background: white;
+        color: $text;
+        opacity: 0.8;
+      }
     }
   }
 

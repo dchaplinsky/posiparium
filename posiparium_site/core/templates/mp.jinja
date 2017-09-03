@@ -74,13 +74,13 @@
                         <p><span class="f_left"><i class="icon ion-android-calendar"></i> Період</span> з {{ convocation.year_from }} по {{ convocation.year_to }}</p>
                     </div>
 
-                    <div class="bottom_block list_persons cf">
+                    <div class="bottom_block">
                         <div class="person_count">
                             {% set minions_count = convo.minion2mp2convocation_set.count() %}
                             <p><strong>{{ minions_count }} {{ minions_count|uk_plural("помічник,помічника,помічників") }}</strong> <span class="float-right">Актуальність інформації</span></p>
 
                         </div>
-                        <ul class="wrap_block cf">
+                        <ul class="wrap_block">
                             {% for minion_link in convo.minion2mp2convocation_set.all() %}
                                 <li class="link_nb">
                                     <h2 itemprop="name"><a href="{{ minion_link.minion.get_absolute_url() }}">{{ minion_link.minion.name }}</a></h2>

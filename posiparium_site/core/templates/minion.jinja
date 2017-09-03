@@ -1,6 +1,6 @@
 {% extends "base.jinja" %}
 {% block title %}{{ minion.name }}, помічник депутата{% endblock %}
-{% block body_class %}not-front profile-page{% endblock %}
+{% block body_class %}not-front profile-page minion-page{% endblock %}
 
 {% block navigation %}
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTop" aria-controls="navbarTop" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,30 +29,38 @@
 {% endblock %}
 
 {% block content %}
-    <section class="jumbotron bg-yellow">
-        <div class="container">
-            <div class="media">
-                <div class="media-body align-self-center">
-                    <h1 class="mt-0 mb-3">{{ minion.name }}</h1>
-                </div>
-            </div>
-        </div>
-    </section>
+    <section class="jumbotron bg-yellow"></section>
 
     <section class="profile">
         <div class="container" itemscope="" itemtype="http://schema.org/Person">
+
+            <h1 class="mt-0 mb-3">{{ minion.name }}</h1>
+            <h4>був помічником у:</h4>
+
             <span itemprop="name" class="hide">{{ minion.name }}</span>
             <span itemprop="jobTitle" class="hide">Помічних депутата</span>
             <link itemprop="url" href="{{ minion.get_absolute_url() }}">
 
             <div class="tab-content">
-                Був помічником у:
-                <ul>
-                {% for mp in minion.mp.all() %}
-                    <li>{{ mp.mp.name }}, {{ mp.party }},
-                    {{ mp.convocation.number }}, {{ mp.convocation.office.name }}</li>
-                {% endfor %}
-                </ul>
+                <div class="bottom_block">
+                    <ul>
+                    {% for mp in minion.mp.all() %}
+                        <li class="link_nb">
+                            {{ mp.mp.name }}
+                            {% if mp.party %}
+                                , {{ mp.party }}
+                            {% endif %}
+                            <span class="radius yellow">
+                                {% if mp.convocation.number %}
+                                    {{ mp.convocation.number }}-е скликання,
+                                {% endif %}
+                                {% if mp.convocation.office.name %}
+                                    {{ mp.convocation.office.name }}
+                                {% endif %}
+                            </span></li>
+                    {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
     </section>

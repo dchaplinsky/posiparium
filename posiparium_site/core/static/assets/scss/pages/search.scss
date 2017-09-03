@@ -49,22 +49,3 @@
     }
   }
 }
-
-.county-page {
-  .jumbotron {
-    color: white;
-  }
-
-  .county-header {
-    @media (min-width: 992px) {
-      justify-content: space-between;
-      display: flex;
-
-      > div {
-        flex: 0 0 50%;
-        max-width: 50%;
-      }
-    }
-  }
-}
-

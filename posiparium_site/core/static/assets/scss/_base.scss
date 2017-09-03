@@ -39,6 +39,39 @@
   display: none !important;
 }
 
+.link_nb {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  clear: both;
+  border-top: 1px solid #e3e3e3;
+  padding: 5px 10px;
+  color: $text;
+
+  &:nth-child(odd) {
+    background: #eee;
+  }
+
+  &.hidden {
+    display: none;
+  }
+
+  h2 {
+    font-weight: normal;
+    font-size: 18px;
+  }
+
+  span {
+    color: white;
+    border-radius: 2px;
+    padding: 0 7px 2px 7px;
+    position: absolute;
+    right: 10px;
+    left: auto;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
 
 .nav-tabs {
   //background: #292929;

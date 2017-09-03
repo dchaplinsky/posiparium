@@ -7,14 +7,14 @@
     <section class="jumbotron bg-yellow pb-1 pt-4">
         <div class="container">
 
-            <h1>{{ convocation.office.name }}. Помічники депутатів {{ convocation.number }} скликання</h1>
+            <h1>{{ convocation.office.name }}. Помічники депутатів {{ convocation.number }}-го скликання</h1>
 
             {% include "_search_form.jinja" %}
 
             <div class="county-header">
                 <div>
                     {% for conv in convocations %}
-                        <p>скликання {{ conv.number }}, {{ conv.year_from }}-{{ conv.year_to }}, Депутатів: {{ conv.num_mps }}, Помічників: {{ conv.num_minions }}</p>
+                        <p>{{ conv.number }}-е скликання, {{ conv.year_from }}-{{ conv.year_to }}, Депутатів: {{ conv.num_mps }}, Помічників: {{ conv.num_minions }}</p>
                     {% endfor %}
                 </div>
             </div>

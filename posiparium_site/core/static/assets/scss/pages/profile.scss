@@ -1,29 +1,6 @@
 .profile-page {
   background: #f1f1f1;
-
-  .link_nb {
-    padding-left: 10px;
-    padding-right: 10px;
-    position: relative;
-
-    span {
-      position: absolute;
-      right: 10px;
-      left: auto;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    &:nth-child(odd) {
-      background: #eee;
-    }
-
-    h2 {
-      font-weight: normal;
-      font-size: 18px;
-    }
-  }
-
+  
   .jumbotron {
     padding: 2rem 1rem;
 
