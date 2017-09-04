@@ -6,10 +6,14 @@
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-content: stretch;
   align-items: flex-start;
   width: 100%;
+
+  @media (min-width: $screen-lg) {
+    justify-content: flex-end;
+  }
 
   .nav-item {
     order: 0;

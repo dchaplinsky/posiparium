@@ -46,18 +46,24 @@
                     <ul>
                     {% for mp in minion.mp.all() %}
                         <li class="link_nb">
-                            {{ mp.mp.name }}
+                            <span class="party">{{ mp.mp.name }}
                             {% if mp.party %}
                                 , {{ mp.party }}
                             {% endif %}
-                            <span class="radius yellow">
+                            </span>
+                            <span class="convocation">
                                 {% if mp.convocation.number %}
-                                    {{ mp.convocation.number }}-е скликання,
+                                    <span class="radius yellow">
+                                    {{ mp.convocation.number }}-е скликання
+                                </span>
                                 {% endif %}
                                 {% if mp.convocation.office.name %}
+                                    <span class="radius yellow">
                                     {{ mp.convocation.office.name }}
+                                </span>
                                 {% endif %}
-                            </span></li>
+                            </span>
+                        </li>
                     {% endfor %}
                     </ul>
                 </div>

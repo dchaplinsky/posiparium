@@ -13,8 +13,32 @@
     justify-content: center;
   }
 
+  .navbar {
+    .collapse {
+      display: block !important;
+    }
+
+    .navbar-toggler {
+      display: none;
+    }
+  }
+
+  .bg-minions {
+    z-index: 0;
+  }
+
   .jumbotron {
     color: white;
+  }
+
+  #ua-map-table {
+    display: table;
+    width: 100% !important;
+    border: 1px solid #eceeef;
+
+    @media (max-width: 767px) {
+      display: block;
+    }
   }
 
   .stats {

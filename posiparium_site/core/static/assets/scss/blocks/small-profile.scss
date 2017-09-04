@@ -158,19 +158,10 @@
     }
 
     .date {
-      background: #acacac;
-      font-size: 9px;
+      font-size: 10px;
       display: inline-block;
-      opacity: 0.5;
       padding: 1px 5px;
-    }
-
-    .link_nb:nth-child(odd) {
-      .date {
-        background: white;
-        color: $text;
-        opacity: 0.8;
-      }
+      color: $text;
     }
   }
 

@@ -41,12 +41,15 @@
 
 .link_nb {
   position: relative;
-  display: block;
   overflow: hidden;
   clear: both;
   border-top: 1px solid #e3e3e3;
   padding: 5px 10px;
   color: $text;
+
+  @media (min-width: $screen-lg) {
+    display: table;
+  }
 
   &:nth-child(odd) {
     background: #eee;
@@ -61,15 +64,24 @@
     font-size: 18px;
   }
 
-  span {
-    color: white;
-    border-radius: 2px;
-    padding: 0 7px 2px 7px;
-    position: absolute;
-    right: 10px;
-    left: auto;
-    top: 50%;
-    transform: translateY(-50%);
+  .party {
+    @media (min-width: $screen-lg) {
+      display: table-cell;
+    }
+  }
+
+  .convocation {
+    @media (min-width: $screen-lg) {
+      display: flex;
+    }
+
+    .radius {
+      color: white;
+      border-radius: 2px;
+      padding: 0 7px 2px 7px;
+      margin-left: 10px;
+      white-space: nowrap;
+    }
   }
 }
 
