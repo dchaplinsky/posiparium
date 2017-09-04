@@ -1,9 +1,25 @@
 .navbar {
  z-index: 2;
+
+  .small-logo {
+    svg {
+      height: 40px;
+      width: 40px;
+    }
+  }
+}
+
+.not-front .navbar .navbar-brand {
+  display: none;
+
+  @media (min-width: 470px) {
+    display: inline-block;
+  }
 }
 
 .navbar > .container {
   border-bottom: #f5d099 1px solid;
+  width: 100%;
 }
 
 .navbar-nav {
