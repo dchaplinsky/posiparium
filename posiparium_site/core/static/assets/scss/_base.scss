@@ -27,6 +27,7 @@
   align-content: stretch;
   align-items: flex-start;
   width: 100%;
+  padding-top: 40px;
 
   .page-item {
     order: 0;
@@ -41,12 +42,16 @@
 
 .link_nb {
   position: relative;
-  display: block;
   overflow: hidden;
   clear: both;
   border-top: 1px solid #e3e3e3;
   padding: 5px 10px;
   color: $text;
+
+  @media (min-width: $screen-lg) {
+    display: table;
+    width: 100%;
+  }
 
   &:nth-child(odd) {
     background: #eee;
@@ -61,15 +66,37 @@
     font-size: 18px;
   }
 
-  span {
-    color: white;
-    border-radius: 2px;
-    padding: 0 7px 2px 7px;
-    position: absolute;
-    right: 10px;
-    left: auto;
-    top: 50%;
-    transform: translateY(-50%);
+  .party {
+    @media (min-width: $screen-lg) {
+      display: table-cell;
+    }
+  }
+
+  .convocation {
+    @include rft(12, 16);
+    display: block;
+
+    @media (min-width: $screen-md) {
+      display: inline;
+    }
+
+    @media (min-width: $screen-lg) {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .radius {
+      color: white;
+      border-radius: 2px;
+      padding: 0 7px 2px 7px;
+      margin-right: 10px;
+
+      @media (min-width: $screen-lg) {
+        white-space: nowrap;
+        margin-right: 0;
+        margin-left: 10px;
+      }
+    }
   }
 }
 
@@ -185,6 +212,7 @@
   width: 100%;
   top: 0;
   left: 0;
+  z-index: 1;
 
   .bg-minions-container {
     position: relative;

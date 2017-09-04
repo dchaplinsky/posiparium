@@ -25,13 +25,15 @@ S - the font-size in pixels
 
   font-size: $mysizeValue-min * 1px;
 
-  @media (min-width: $screen-sm-min) {
+  @media (min-width: $screen-sm) {
     font-size: $mysizeValue-max - $step * 2 * 1px;
   }
-  @media (min-width: $screen-md-min) {
+
+  @media (min-width: $screen-md) {
     font-size: ($mysizeValue-max - $step) * 1px;
   }
-  @media (min-width: $screen-lg-min) {
+
+  @media (min-width: $screen-lg) {
     font-size: $mysizeValue-max * 1px;
   }
 }

@@ -75,7 +75,7 @@ $pad: 15px;
     padding: 0 10px;
     font-weight: 300;
 
-    @media(min-width:768px) {
+    @media(min-width: $screen-md) {
       font-size: 24px;
     }
 
@@ -167,7 +167,7 @@ $pad: 15px;
 .copyrights-logos {
   overflow: hidden;
 
-  @media (max-width: 991px) {
+  @media (max-width: $screen-md-max) {
     margin-bottom: $pad20;
   }
 }

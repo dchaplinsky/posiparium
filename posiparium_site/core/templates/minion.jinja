@@ -6,6 +6,7 @@
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTop" aria-controls="navbarTop" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+    <a class="small-logo mr-1" href="/"><span class="nevid svg-image logo"><svg preserveAspectRatio="xMidYMid" focusable="false"><use xlink:href="{{ static('assets/images/svg/svg-images-sprite.svg') }}#minions2"></use></svg></span></a>
     <a class="navbar-brand pt-0" href="/">Посіпаки-2. Мініміньони <span class="lead">База помічників регіональних депутатів</span></a>
 
     <div class="collapse navbar-collapse" id="navbarTop">
@@ -46,18 +47,27 @@
                     <ul>
                     {% for mp in minion.mp.all() %}
                         <li class="link_nb">
-                            {{ mp.mp.name }}
+                            <span class="party">
+                                <a href="{{ mp.mp.get_absolute_url() }}">
+                                {{ mp.mp.name }}
                             {% if mp.party %}
                                 , {{ mp.party }}
+                                </a>
                             {% endif %}
-                            <span class="radius yellow">
+                            </span>
+                            <span class="convocation">
                                 {% if mp.convocation.number %}
-                                    {{ mp.convocation.number }}-е скликання,
+                                    <span class="radius yellow">
+                                    {{ mp.convocation.number }}-е скликання
+                                </span>
                                 {% endif %}
                                 {% if mp.convocation.office.name %}
+                                    <span class="radius yellow">
                                     {{ mp.convocation.office.name }}
+                                </span>
                                 {% endif %}
-                            </span></li>
+                            </span>
+                        </li>
                     {% endfor %}
                     </ul>
                 </div>

@@ -7,6 +7,7 @@
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTop" aria-controls="navbarTop" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+    <a class="small-logo mr-1" href="/"><span class="nevid svg-image logo"><svg preserveAspectRatio="xMidYMid" focusable="false"><use xlink:href="{{ static('assets/images/svg/svg-images-sprite.svg') }}#minions2"></use></svg></span></a>
     <a class="navbar-brand pt-0" href="/">Посіпаки-2. Мініміньони <span class="lead">База помічників регіональних депутатів</span></a>
 
     <div class="collapse navbar-collapse" id="navbarTop">
@@ -35,9 +36,9 @@
         <div class="container">
             <div class="media">
                 {% if mp.img %}
-                    <img class="d-flex align-self-center mr-3 rounded-circle" src="{{ mp.img|thumbnail_url("avatar") }}" alt="{{ mp.name }}">
+                    <img class="align-self-center mr-3 rounded-circle" src="{{ mp.img|thumbnail_url("avatar") }}" alt="{{ mp.name }}">
                 {% else %}
-                    <div class="no-foto d-flex align-self-center mr-3 rounded-circle"></div>
+                    <div class="no-foto align-self-center mr-3 rounded-circle"></div>
                 {% endif %}
                 <div class="media-body align-self-center">
                     <h1 class="mt-0 mb-3">{{ mp.name }}</h1>
@@ -84,10 +85,12 @@
                         <ul class="wrap_block">
                             {% for minion_link in convo.minion2mp2convocation_set.all() %}
                                 <li class="link_nb">
-                                    <h2 itemprop="name"><a href="{{ minion_link.minion.get_absolute_url() }}">{{ minion_link.minion.name }}</a></h2>
+                                    <h2 itemprop="name" class="party"><a href="{{ minion_link.minion.get_absolute_url() }}">{{ minion_link.minion.name }}</a></h2>
                                     <span itemprop="jobTitle" class="hide">Помічник депутата</span>
                                     {% if minion_link.confirmed %}
-                                        <span class="radius yellow">{{ minion_link.confirmed|format_date }}</span>
+                                        <span class="convocation">
+                                            <span class="radius yellow">{{ minion_link.confirmed|format_date }}</span>
+                                        </span>
                                     {% endif %}
                                 </li>
                             {% endfor %}

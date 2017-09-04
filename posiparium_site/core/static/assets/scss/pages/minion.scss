@@ -3,7 +3,11 @@
     margin-top: 0;
 
     .tab-content {
-      margin-top: 80px;
+      margin-top: 40px;
+
+      @media (min-width: $screen-lg) {
+        margin-top: 80px;
+      }
     }
   }
 }

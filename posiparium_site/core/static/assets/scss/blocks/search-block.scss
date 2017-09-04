@@ -30,9 +30,11 @@
   }
 
   .searchbox {
-    @include make-col(6);
-    order: 0;
-    align-self: auto;
+    @media (min-width: $screen-lg) {
+      @include make-col(6);
+      order: 0;
+      align-self: auto;
+    }
   }
 }
 
@@ -43,6 +45,11 @@
 .navbar-nav {
   .small-search {
     margin: 0;
+    margin-bottom: 20px;
+
+    @media (min-width: $screen-lg) {
+      margin-bottom: 0;
+    }
 
     @include placeholder-color(white);
 
