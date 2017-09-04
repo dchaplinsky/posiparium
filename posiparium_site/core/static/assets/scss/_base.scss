@@ -49,6 +49,7 @@
 
   @media (min-width: $screen-lg) {
     display: table;
+    width: 100%;
   }
 
   &:nth-child(odd) {
@@ -73,6 +74,7 @@
   .convocation {
     @media (min-width: $screen-lg) {
       display: flex;
+      justify-content: flex-end;
     }
 
     .radius {
@@ -197,6 +199,7 @@
   width: 100%;
   top: 0;
   left: 0;
+  z-index: 1;
 
   .bg-minions-container {
     position: relative;
