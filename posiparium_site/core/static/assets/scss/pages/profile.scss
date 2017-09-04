@@ -9,6 +9,10 @@
       margin-bottom: -100px;
       margin-top: 20px;
 
+      @media (max-width: $screen-sm-max) {
+        display: block;
+      }
+
       $foto-size: 150px;
 
       img {
@@ -37,7 +41,12 @@
       }
 
       .media-body {
-        margin-top: -40px;
+        color: $text;
+
+        @media (min-width: $screen-md) {
+          margin-top: -40px;
+          color: white;
+        }
       }
     }
   }

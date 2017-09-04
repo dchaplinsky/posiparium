@@ -27,6 +27,7 @@
   align-content: stretch;
   align-items: flex-start;
   width: 100%;
+  padding-top: 40px;
 
   .page-item {
     order: 0;
@@ -72,6 +73,13 @@
   }
 
   .convocation {
+    @include rft(12, 16);
+    display: block;
+
+    @media (min-width: $screen-md) {
+      display: inline;
+    }
+
     @media (min-width: $screen-lg) {
       display: flex;
       justify-content: flex-end;
@@ -81,8 +89,13 @@
       color: white;
       border-radius: 2px;
       padding: 0 7px 2px 7px;
-      margin-left: 10px;
-      white-space: nowrap;
+      margin-right: 10px;
+
+      @media (min-width: $screen-lg) {
+        white-space: nowrap;
+        margin-right: 0;
+        margin-left: 10px;
+      }
     }
   }
 }

@@ -4,7 +4,7 @@
         <li class="page-item {% if not results.has_previous() %} disabled{% endif %}"><a href="{{ url }}{% if results.has_previous() %}?{{ updated_querystring(request, {'page': results.previous_page_number()}) }}{% endif %}" class="page-link">Попередня</a></li>
         {% for page_num in results.contextual_page_range %}
         {% if page_num == None %}
-            <li class="page-item disabled"><span>&hellip;</span></li>
+            <li class="page-item disabled"><a class="page-link"><span>&hellip;</span></a></li>
         {% else %}
             <li class="page-item{% if results.number == page_num %} active{% endif %}"><a href="{{ url }}?{{ updated_querystring(request, {'page': page_num}) }}" class="page-link">{{ page_num }}</a></li>
         {% endif %}

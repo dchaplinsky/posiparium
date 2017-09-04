@@ -7,23 +7,37 @@
 }
 
 .navbar-nav {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-content: stretch;
-  align-items: flex-start;
   width: 100%;
+
+  @media (min-width: $screen-md) {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: stretch;
+    align-items: flex-start;
+  }
 
   @media (min-width: $screen-lg) {
     justify-content: flex-end;
   }
 
   .nav-item {
-    order: 0;
-    flex: 0 1 auto;
-    align-self: auto;
     text-transform: uppercase;
+
+    @media (min-width: $screen-md) {
+      order: 0;
+      flex: 0 1 auto;
+      align-self: auto;
+    }
+
+    & + .nav-item {
+      margin-left: 0;
+
+      @media (min-width: $screen-md) {
+        margin-left: 2rem;
+      }
+    }
 
     .nav-link {
       color: rgba(255, 255, 255, 1);
@@ -40,6 +54,27 @@
 
       &:last-child {
         border: none;
+      }
+    }
+  }
+}
+
+.front {
+  .navbar-nav {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: stretch;
+    align-items: flex-start;
+    justify-content: flex-end;
+
+    .nav-item {
+      order: 0;
+      flex: 0 1 auto;
+      align-self: auto;
+
+      & + .nav-item {
+        margin-left: 2rem;
       }
     }
   }
@@ -64,7 +99,7 @@
     text-align: left;
 
     .lead {
-      font-size: 12px;
+      @include rft(9,12);
       display: block;
       text-transform: uppercase;
       font-family: 'Roboto Condensed', sans-serif;

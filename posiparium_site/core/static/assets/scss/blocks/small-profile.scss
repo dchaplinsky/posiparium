@@ -187,7 +187,7 @@
 
 .row {
   .small-profile:last-child {
-    @media (max-width: 991px) {
+    @media (max-width: $screen-md-max) {
       margin-top: 40px;
     }
   }
