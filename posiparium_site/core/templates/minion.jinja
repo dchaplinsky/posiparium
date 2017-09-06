@@ -58,13 +58,13 @@
                             <span class="convocation">
                                 {% if mp.convocation.number %}
                                     <span class="radius yellow">
-                                    {{ mp.convocation.number }}-е скликання
-                                </span>
+                                        <a href="{{ mp.convocation.get_absolute_url() }}">{{ mp.convocation.number }}-е скликання</a>
+                                    </span>
                                 {% endif %}
                                 {% if mp.convocation.office.name %}
                                     <span class="radius yellow">
-                                    {{ mp.convocation.office.name }}
-                                </span>
+                                        {{ mp.convocation.office.name }}
+                                    </span>
                                 {% endif %}
                             </span>
                         </li>
