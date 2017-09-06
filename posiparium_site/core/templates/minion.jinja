@@ -57,7 +57,7 @@
                             </span>
                             <span class="convocation">
                                 {% if mp.convocation.number %}
-                                    <a class="radius yellow" href="{{ mp.convocation.get_absolute_url() }}">{{ mp.convocation.number }}-е скликання</a>
+                                    <a class="radius yellow" href="{{ mp.convocation.get_absolute_url() }}"><i class="icon ion-funnel"></i> {{ mp.convocation.number }}-е скликання</a>
                                 {% endif %}
                                 {% if mp.convocation.office.name %}
                                     <span class="radius yellow">

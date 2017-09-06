@@ -87,9 +87,10 @@
 
     a {
       text-decoration: none;
+      background: $decl-blue;
 
       &:hover {
-        background: $decl-blue;
+        background: $decl-green;
       }
     }
 
