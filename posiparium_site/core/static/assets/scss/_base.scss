@@ -85,6 +85,14 @@
       justify-content: flex-end;
     }
 
+    a {
+      text-decoration: none;
+
+      &:hover {
+        background: $decl-blue;
+      }
+    }
+
     .radius {
       color: white;
       border-radius: 2px;
@@ -187,7 +195,7 @@
   background: $minion-yellow;
 }
 
-.link_nb span.yellow  {
+.link_nb .yellow  {
   background: $decl-green;
 }
 
