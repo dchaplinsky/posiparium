@@ -2,8 +2,11 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.sitemaps.views import sitemap
 
 from core import views as core_views
+from core.sitemaps import sitemaps
+
 
 urlpatterns = [
     url(r'^$', core_views.home, name='home'),
@@ -14,6 +17,8 @@ urlpatterns = [
     url(r'^minion/(?P<minion_id>\d+)$', core_views.minion, name='minion_details'),
     url(r'^(?P<county_slug>\w+)$', core_views.county, name='county'),
     url(r'^(?P<county_slug>\w+)/(?P<convocation_id>\d+)$', core_views.convocation, name='convocation'),
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
+        name='django.contrib.sitemaps.views.sitemap'),
 
     url(r'^admin/', admin.site.urls),
 ]

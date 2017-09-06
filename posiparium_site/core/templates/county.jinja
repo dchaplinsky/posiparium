@@ -26,3 +26,8 @@
 
     {% include "_search_results.jinja" %}
 {% endblock %}
+
+{% block extrahead %}
+    {% if search_results.has_previous() %}<link rel="prev" href="?{{ updated_querystring(request, {'page': search_results.previous_page_number()}) }}" />{% endif %}
+    {% if search_results.has_next() %}<link rel="next" href="?{{ updated_querystring(request, {'page': search_results.next_page_number()}) }}" />{% endif %}
+{% endblock %}

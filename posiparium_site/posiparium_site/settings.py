@@ -20,6 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+SITE_ID = 1
 SECRET_KEY = '83**zfdwv$q(hd*j@qdpytjaqf5^pzfc)m^5y9!wxf_#67lsal'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -35,6 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sitemaps',
+    'django.contrib.sites',
     'django.contrib.staticfiles',
     'pipeline',
     'django_jinja.contrib._easy_thumbnails',
