@@ -52,13 +52,13 @@
                                 {{ mp.mp.name }}
                             {% if mp.party %}
                                 , {{ mp.party }}
-                                </a>
                             {% endif %}
+                                </a>
                             </span>
                             <span class="convocation">
                                 {% if mp.convocation.number %}
-                                    <span class="radius yellow">
-                                        <a href="{{ mp.convocation.get_absolute_url() }}">{{ mp.convocation.number }}-е скликання</a>
+                                    <span class="radius yellow with-link">
+                                        <a href="{{ mp.convocation.get_absolute_url() }}"><i class="icon ion-funnel"></i> {{ mp.convocation.number }}-е скликання</a>
                                     </span>
                                 {% endif %}
                                 {% if mp.convocation.office.name %}
