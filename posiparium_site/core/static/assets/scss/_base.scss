@@ -96,6 +96,21 @@
         margin-right: 0;
         margin-left: 10px;
       }
+
+      &.with-link {
+        background: $decl-blue;
+        cursor: pointer;
+
+        &:hover {
+          background: $decl-green;
+          text-decoration: none;
+        }
+
+        a {
+          color: white;
+          text-decoration: none;
+        }
+      }
     }
   }
 }
@@ -187,7 +202,7 @@
   background: $minion-yellow;
 }
 
-.link_nb span.yellow  {
+.link_nb .yellow  {
   background: $decl-green;
 }
 
