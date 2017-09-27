@@ -137,7 +137,7 @@ def county(request, county_slug):
         "region": region,
         "convocations": Convocation.objects.select_related(
             "office", "office__region").filter(office__region=region).order_by(
-            "office").annotate(
+            "office", "number").annotate(
                 num_mps=Count('mp2convocation', distinct=True),
                 num_minions=Count('mp2convocation__minion')
         ),
