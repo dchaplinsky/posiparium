@@ -40,6 +40,7 @@ class Command(BaseCommand):
         "Рівненська область": "rv",
         "Сумська область": "sumy",
         "Тернопільска область": "te",
+        "Тернопільська область": "te",
         "Харківська область": "kh",
         "Херсонська область": "ks",
         "Хмельницька область": "km",
@@ -86,6 +87,9 @@ class Command(BaseCommand):
                         elif body_type == "міська рада":
                             kind = 1
                             office = inflected_region + " міська рада"
+                        elif body_type == "районна рада":
+                            kind = 2
+                            office = inflected_region + " районна рада"
                         else:
                             self.stderr.write(
                                 "Cannot classify public body type {}".format(body_type)
@@ -93,9 +97,9 @@ class Command(BaseCommand):
                             continue
 
                         region_model, _ = County.objects.get_or_create(
-                            name=region,
+                            slug=self.regions_mapping[region],
                             defaults={
-                                "slug": self.regions_mapping[region]
+                                "name": region
                             }
                         )
 

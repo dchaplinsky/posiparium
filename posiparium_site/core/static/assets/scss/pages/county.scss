@@ -12,6 +12,8 @@
     @media (min-width: 992px) {
       justify-content: space-between;
       display: flex;
+      flex-wrap: wrap;
+
 
       > div {
         flex: 0 0 50%;
