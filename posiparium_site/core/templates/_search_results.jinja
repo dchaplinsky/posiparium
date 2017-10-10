@@ -50,14 +50,18 @@
                                 <ul class="posipaky">
                                     <span>Помічники: </span>
                                     {% for minion in mp.list %}
-                                    <li class="link_nb">
-                                        <a href="{{ url("minion_details", minion.id) }}" class="party">{{ minion|highlight("name")|safe }}</a>
-                                        {% if minion.confirmed %}
-                                            <span class="convocation">
-                                                <span class="date">{{ minion.confirmed|format_date }}</span>
-                                            </span>
+                                        {% if minion.id %}
+                                            <li class="link_nb">
+                                                <a href="{{ url("minion_details", minion.id) }}" class="party">{{ minion|highlight("name")|safe }}</a>
+                                                {% if minion.confirmed %}
+                                                    <span class="convocation">
+                                                        <span class="date">{{ minion.confirmed|format_date }}</span>
+                                                    </span>
+                                                {% endif %}
+                                            </li>
+                                        {% else %}
+                                            <li class="link_nb">Нема</li>
                                         {% endif %}
-                                    </li>
                                     {% endfor %}
                                 </ul>
                             </div>

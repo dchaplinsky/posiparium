@@ -37,6 +37,17 @@ def parse_fullname(person_name):
     return last_name, first_name, patronymic
 
 
+def generate_suggestions(last_name, first_name, patronymic):
+    if not last_name:
+        return []
+
+    return [
+        " ".join([last_name, first_name, patronymic]),
+        " ".join([first_name, patronymic, last_name]),
+        " ".join([first_name, last_name])
+    ]
+
+
 class County(models.Model):
     name = models.CharField("Регіон", max_length=100, primary_key=True)
     slug = models.CharField("slug", max_length=20)
@@ -154,7 +165,27 @@ class MP2Convocation(models.Model):
 
         m["grouper"] = "%s %s" % (self.convocation_id, self.mp.name)
 
-        return m
+        base_d = {
+            "mp": m,
+            "convocation": self.convocation.number,
+            "convocation_id": self.convocation.pk,
+            "body": self.convocation.office.name,
+            "body_id": self.convocation.office.pk,
+            "region": self.convocation.office.region.name,
+            "region_slug": self.convocation.office.region.slug,
+            "mp_name_suggest": {
+                "input": generate_suggestions(*parse_fullname(self.mp.name))
+            }
+        }
+
+        minions = self.minion2mp2convocation_set.select_related("minion").all()
+        if minions:
+            for minion in minions:
+                d = base_d.copy()
+                d.update(minion.to_dict())
+                yield d
+        else:
+            yield base_d
 
     class Meta:
         verbose_name = "Належність до скликання"
@@ -172,32 +203,11 @@ class Minion2MP2Convocation(models.Model):
         """
         d = model_to_dict(self, fields=["confirmed"])
 
-        d["mp"] = self.mp2convocation.to_dict()
         d["minion_id"] = self.minion_id
-        d["convocation"] = self.mp2convocation.convocation.number
-        d["convocation_id"] = self.mp2convocation.convocation.pk
-        d["body"] = self.mp2convocation.convocation.office.name
-        d["body_id"] = self.mp2convocation.convocation.office.pk
-        d["region"] = self.mp2convocation.convocation.office.region.name
-        d["region_slug"] = self.mp2convocation.convocation.office.region.slug
-
-        def generate_suggestions(last_name, first_name, patronymic):
-            if not last_name:
-                return []
-
-            return [
-                " ".join([last_name, first_name, patronymic]),
-                " ".join([first_name, patronymic, last_name]),
-                " ".join([first_name, last_name])
-            ]
 
         d["name_suggest"] = {
-            "input": generate_suggestions(*parse_fullname(self.minion.name))
-        }
-
-        d["mp_name_suggest"] = {
             "input": generate_suggestions(
-                *parse_fullname(self.mp2convocation.mp.name))
+                *parse_fullname(self.minion.name))
         }
 
         d["_id"] = self.id

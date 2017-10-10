@@ -3,7 +3,7 @@ from elasticsearch_dsl import Index
 from elasticsearch.helpers import bulk
 from elasticsearch_dsl.connections import connections
 
-from core.models import Minion2MP2Convocation
+from core.models import MP2Convocation
 from core.elastic_models import Minion as ElasticMinion
 
 
@@ -22,14 +22,16 @@ class Command(BaseCommand):
 
         counter = 0
         portion = []
-        for p in Minion2MP2Convocation.objects.select_related(
-                "minion", "mp2convocation", "mp2convocation__mp").all():
-            portion.append(ElasticMinion(**p.to_dict()).to_dict(True))
-            counter += 1
+        for mp in MP2Convocation.objects.select_related(
+                "mp", "convocation").all():
 
-            if len(portion) >= 100:
-                bulk(es, portion)
-                portion = []
+            for p in mp.to_dict():
+                portion.append(ElasticMinion(**p).to_dict(True))
+                counter += 1
+
+                if len(portion) >= 100:
+                    bulk(es, portion)
+                    portion = []
 
         bulk(es, portion)
 
