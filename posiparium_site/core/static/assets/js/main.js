@@ -44,7 +44,7 @@
                     }
                     
                     $('.popover-dismiss').popover({
-                        trigger: 'manual',
+                        trigger: 'hover',
                         html: true,
                         placement: 'top',
                         container: 'body',
@@ -60,19 +60,6 @@
 
                             return popoverHTML;
                         }
-                    }).on("mouseenter", function () {
-                        var _this = this;
-                        $(this).popover("show");
-                        $(".popover").on("mouseleave", function () {
-                            $(_this).popover('hide');
-                        });
-                    }).on("mouseleave", function () {
-                        var _this = this;
-                        setTimeout(function () {
-                            if (!$(".popover:hover").length) {
-                                $(_this).popover("hide");
-                            }
-                        }, 1000);
                     });
 
                     $('.egg-popover-dismiss').popover({
@@ -137,12 +124,24 @@
                     }]
                 });
 
-                $('#ua-map svg path[data-oblast][data-oblast!=""], #ua-map svg path[data-egg][data-egg!=""]').on({
+                var $oblast = $('#ua-map svg path[data-oblast][data-oblast!=""], #ua-map svg path[data-egg][data-egg!=""]');
+
+                $oblast.on({
                     mouseenter: function () {
                         $(this).attr('fill', '#f5b351');
                     },
                     mouseleave: function () {
                         $(this).attr('fill', '#ffffff');
+                    }
+                });
+
+                $oblast.on('click', function() {
+                    var $this = $(this),
+                        url = $this.data('url');
+
+                    if(url) {
+                        window.location.href = url;
+                        window.status = url;
                     }
                 });
             });
@@ -164,10 +163,6 @@
             }
         }
     }
-
-    $(document).on('show.bs.popover', function() {
-        $('.popover').not(this).popover('hide');
-    });
 
     function wrapPosipakyList() {
         var $container = $('.small-profile .posipaky');
