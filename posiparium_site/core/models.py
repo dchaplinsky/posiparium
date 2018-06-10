@@ -2,7 +2,7 @@ import re
 from string import capwords
 
 from django.forms.models import model_to_dict
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db import models
 
 from easy_thumbnails.files import get_thumbnailer
@@ -69,7 +69,7 @@ class County(models.Model):
 
 class PublicOffice(models.Model):
     name = models.CharField("Рада", max_length=100, primary_key=True)
-    region = models.ForeignKey("County")
+    region = models.ForeignKey("County", on_delete=models.CASCADE)
     kind = models.IntegerField(
         "Тип органу",
         choices=(
@@ -95,7 +95,7 @@ class Convocation(models.Model):
     number = models.IntegerField("Скликання")
     year_from = models.IntegerField("З", blank=True, null=True)
     year_to = models.IntegerField("По", blank=True, null=True)
-    office = models.ForeignKey("PublicOffice")
+    office = models.ForeignKey("PublicOffice", on_delete=models.CASCADE)
 
     def __unicode__(self):
         return "{} скликання {}".format(self.number, self.office.name)
@@ -140,8 +140,8 @@ class MP2Convocation(models.Model):
 
     link = models.URLField("Посилання", max_length=512, blank=True)
 
-    mp = models.ForeignKey("MemberOfParliament")
-    convocation = models.ForeignKey("Convocation")
+    mp = models.ForeignKey("MemberOfParliament", on_delete=models.CASCADE)
+    convocation = models.ForeignKey("Convocation", on_delete=models.CASCADE)
 
     def __unicode__(self):
         return "%s, депутат %s скликання" % (self.mp.name, self.convocation)
@@ -193,8 +193,8 @@ class MP2Convocation(models.Model):
 
 
 class Minion2MP2Convocation(models.Model):
-    mp2convocation = models.ForeignKey("MP2Convocation")
-    minion = models.ForeignKey("Minion")
+    mp2convocation = models.ForeignKey("MP2Convocation", on_delete=models.CASCADE)
+    minion = models.ForeignKey("Minion", on_delete=models.CASCADE)
     confirmed = models.CharField("Підтверджено", max_length=200)
 
     def to_dict(self):
