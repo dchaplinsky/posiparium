@@ -2,7 +2,7 @@
     <div class="searchbox">
         <form action="{{ url('search') }}" method="GET">
             <div class="input-group">
-                <input type="text" name="q" class="form-control search-name" placeholder="Знайти посiпаку...">
+                <input type="text" name="q" class="form-control search-name search-form-q" placeholder="Знайти посiпаку..." data-endpoint="{{ url("search>suggest") }}" autocomplete="off">
                 <span class="input-group-btn">
                     <button class="btn btn-secondary" type="button"><i class="icon ion-search"></i></button>
                 </span>

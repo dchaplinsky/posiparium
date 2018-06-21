@@ -11,7 +11,7 @@ from core.sitemaps import sitemaps
 urlpatterns = [
     url(r'^$', core_views.home, name='home'),
     url(r'^home_stats$', core_views.home_stats, name='home_stats'),
-    url(r'^ajax/suggest$', core_views.suggest, name='suggest'),
+    url(r'^search/suggest$', core_views.SuggestView.as_view(), name="search>suggest"),
     url(r'^search$', core_views.search, name='search'),
     url(r'^mp/(?P<mp_id>\d+)$', core_views.mp, name='mp_details'),
     url(r'^minion/(?P<minion_id>\d+)$', core_views.minion, name='minion_details'),

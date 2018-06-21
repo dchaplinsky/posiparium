@@ -210,27 +210,32 @@
         updateSearchForm();
         wrapPosipakyList();
 
-        $(".search-name").typeahead({
+        $(".search-form-q").typeahead({
             minLength: 2,
+            items: 100,
             autoSelect: false,
             source: function(query, process) {
-                $.get('/ajax/suggest', {"q": query})
-                    .done(function(data){
+                $.get($(".search-form-q").data("endpoint"), {
+                        "q": query
+                    })
+                    .done(function(data) {
                         process(data);
                     })
             },
             matcher: function() {
                 return true;
-            }
-        });
+            },
+            highlighter: function(instance) {
+                return instance;
+            },
+            updater: function(instance) {
+                return $(instance).data("sugg_text")
+            },
+            afterSelect: function(item) {
+                var form = $(".search-form-q").closest("form");
+                form.find("input[name=is_exact]").val("on");
 
-        $('.search-name').on('keydown', function(e) {
-            if (e.keyCode == 13) {
-                var ta = $(this).data('typeahead'),
-                    val = ta.$menu.find('.active').data('value');
-                if (val)
-                    $(this).val(val);
-                $(this.form).submit();
+                form.submit();
             }
         });
     });

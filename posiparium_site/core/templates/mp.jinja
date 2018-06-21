@@ -54,50 +54,52 @@
             <link itemprop="url" href="{{ mp.get_absolute_url() }}">
             <link itemprop="image" href="{{ mp.img|thumbnail_url("avatar") }}">
 
-            <ul class="nav nav-tabs" role="tablist">
-                {% for convo in mp.mp2convocation_set.all() %}
-                <li class="nav-item">
-                    <a class="nav-link active" href="#conv_{{ convo.pk }}" role="tab" data-toggle="tab">{{ convo.convocation.number }} скликання, <p>{{ convo.convocation.office.name }}</p> </a>
-                </li>
-                {% endfor %}
-            </ul>
+            <div>
+                <ul class="nav nav-tabs" role="tablist">
+                    {% for convo in mp.mp2convocation_set.all() %}
+                    <li class="nav-item">
+                        <a class="nav-link{% if loop.first %} active{% endif %}" href="#conv_{{ convo.pk }}" aria-controls="conv_{{ convo.pk }}" role="tab" data-toggle="tab">{{ convo.convocation.number }} скликання, <p>{{ convo.convocation.office.name }}</p> </a>
+                    </li>
+                    {% endfor %}
+                </ul>
 
-            <div class="tab-content">
-                {% for convo in mp.mp2convocation_set.all() %}
-                {% set convocation = convo.convocation %}
-                <div role="tabpanel" class="tab-pane fade show active" id="{{ convo.pk }}">
-                    <div class="top_block main_information cf" itemscope="" itemtype="http://schema.org/Organization" itemprop="memberOf">
-                        {% if convo.party %}<p itemprop="name"><span class="f_left">Партія</span> {{ convo.party }}</p>{% endif %}
-                        {% if convo.fraction %}<p><span class="f_left">Фракція</span> {{ convo.fraction }}</p>{% endif %}
-                        {% if convo.comission %}<p><span class="f_left">Комісія</span> {{ convo.comission }}</p>{% endif %}
-                        {% if convo.link %}
-                        <p><a class="find_viki" href="{{ convo.link }}" target="_blank"><i class="icon ion-ios-world-outline"></i> <span class="text-underline">Офіційна сторінка</span></a></p>
-                        {% endif %}
-                        <p><span class="f_left"><i class="icon ion-android-calendar"></i> Період</span> з {{ convocation.year_from }} по {{ convocation.year_to }}</p>
-                    </div>
-
-                    <div class="bottom_block">
-                        <div class="person_count">
-                            {% set minions_count = convo.minion2mp2convocation_set.count() %}
-                            <p><strong>{{ minions_count }} {{ minions_count|uk_plural("помічник,помічника,помічників") }}</strong> <span class="float-right">Актуальність інформації</span></p>
-
+                <div class="tab-content">
+                    {% for convo in mp.mp2convocation_set.all() %}
+                    {% set convocation = convo.convocation %}
+                    <div role="tabpanel" class="tab-pane fade show{% if loop.first %} active{% endif %}" id="conv_{{ convo.pk }}">
+                        <div class="top_block main_information cf" itemscope="" itemtype="http://schema.org/Organization" itemprop="memberOf">
+                            {% if convo.party %}<p itemprop="name"><span class="f_left">Партія</span> {{ convo.party }}</p>{% endif %}
+                            {% if convo.fraction %}<p><span class="f_left">Фракція</span> {{ convo.fraction }}</p>{% endif %}
+                            {% if convo.comission %}<p><span class="f_left">Комісія</span> {{ convo.comission }}</p>{% endif %}
+                            {% if convo.link %}
+                            <p><a class="find_viki" href="{{ convo.link }}" target="_blank"><i class="icon ion-ios-world-outline"></i> <span class="text-underline">Офіційна сторінка</span></a></p>
+                            {% endif %}
+                            <p><span class="f_left"><i class="icon ion-android-calendar"></i> Період</span> з {{ convocation.year_from }} по {{ convocation.year_to }}</p>
                         </div>
-                        <ul class="wrap_block">
-                            {% for minion_link in convo.minion2mp2convocation_set.all() %}
-                                <li class="link_nb">
-                                    <h2 itemprop="name" class="party"><a href="{{ minion_link.minion.get_absolute_url() }}">{{ minion_link.minion.name }}</a></h2>
-                                    <span itemprop="jobTitle" class="hide">Помічник депутата</span>
-                                    {% if minion_link.confirmed %}
-                                        <span class="convocation">
-                                            <span class="radius yellow">{{ minion_link.confirmed|format_date }}</span>
-                                        </span>
-                                    {% endif %}
-                                </li>
-                            {% endfor %}
+
+                        <div class="bottom_block">
+                            <div class="person_count">
+                                {% set minions_count = convo.minion2mp2convocation_set.count() %}
+                                <p><strong>{{ minions_count }} {{ minions_count|uk_plural("помічник,помічника,помічників") }}</strong> <span class="float-right">Актуальність інформації</span></p>
+
+                            </div>
+                            <ul class="wrap_block">
+                                {% for minion_link in convo.minion2mp2convocation_set.all() %}
+                                    <li class="link_nb">
+                                        <h2 itemprop="name" class="party"><a href="{{ minion_link.minion.get_absolute_url() }}">{{ minion_link.minion.name }}</a></h2>
+                                        <span itemprop="jobTitle" class="hide">Помічник депутата</span>
+                                        {% if minion_link.confirmed %}
+                                            <span class="convocation">
+                                                <span class="radius yellow">{{ minion_link.confirmed|format_date }}</span>
+                                            </span>
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
         </div>
     </section>

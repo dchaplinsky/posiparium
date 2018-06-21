@@ -5,47 +5,11 @@ from django.forms.models import model_to_dict
 from django.urls import reverse
 from django.db import models
 
+from translitua import translit, UkrainianKMU
 from easy_thumbnails.files import get_thumbnailer
 from easy_thumbnails.exceptions import EasyThumbnailsError
 
-
-def title(s):
-    chunks = s.split()
-    chunks = map(lambda x: capwords(x, u"-"), chunks)
-    return u" ".join(chunks)
-
-
-def parse_fullname(person_name):
-    # Extra care for initials (especialy those without space)
-    person_name = re.sub("\s+", " ",
-                         person_name.replace(".", ". ").replace('\xa0', " "))
-
-    chunks = person_name.strip().split(" ")
-
-    last_name = ""
-    first_name = ""
-    patronymic = ""
-
-    if len(chunks) == 2:
-        last_name = title(chunks[0])
-        first_name = title(chunks[1])
-    elif len(chunks) > 2:
-        last_name = title(" ".join(chunks[:-2]))
-        first_name = title(chunks[-2])
-        patronymic = title(chunks[-1])
-
-    return last_name, first_name, patronymic
-
-
-def generate_suggestions(last_name, first_name, patronymic):
-    if not last_name:
-        return []
-
-    return [
-        " ".join([last_name, first_name, patronymic]),
-        " ".join([first_name, patronymic, last_name]),
-        " ".join([first_name, last_name])
-    ]
+from core.tools.names import title, parse_fullname, TRANSLITERATOR
 
 
 class County(models.Model):
@@ -150,6 +114,18 @@ class MP2Convocation(models.Model):
         return self.__unicode__()
 
     def to_dict(self):
+        all_persons = set()
+        names_autocomplete = set()
+        companies = list(
+            filter(None,
+                [
+                    self.party,
+                    self.fraction,
+                    self.comission
+                ]
+            )
+        )
+
         m = model_to_dict(self, fields=[
             "party", "fraction", "comission"])
 
@@ -163,6 +139,15 @@ class MP2Convocation(models.Model):
             except EasyThumbnailsError:
                 pass
 
+        all_persons.add("{}, {}".format(self.mp.name, "Депутат"))
+        l, f, p, _ = parse_fullname(self.mp.name)
+        for tr_name in TRANSLITERATOR.transliterate(l, f, p):
+            all_persons.add("{}, {}".format(tr_name, "Депутат"))
+
+        names_autocomplete.add(title(self.mp.name))
+        names_autocomplete.add(translit(title(self.mp.name), UkrainianKMU))
+
+
         m["grouper"] = "%s %s" % (self.convocation_id, self.mp.name)
 
         base_d = {
@@ -173,9 +158,9 @@ class MP2Convocation(models.Model):
             "body_id": self.convocation.office.pk,
             "region": self.convocation.office.region.name,
             "region_slug": self.convocation.office.region.slug,
-            "mp_name_suggest": {
-                "input": generate_suggestions(*parse_fullname(self.mp.name))
-            }
+            "companies": companies,
+            "persons": list(filter(None, all_persons)),
+            "names_autocomplete": list(filter(None, names_autocomplete)),
         }
 
         minions = self.minion2mp2convocation_set.select_related("minion").all()
@@ -183,6 +168,10 @@ class MP2Convocation(models.Model):
             for minion in minions:
                 d = base_d.copy()
                 d.update(minion.to_dict())
+                d["persons"] = list(filter(None, d["persons"] | all_persons))
+                d["names_autocomplete"] = list(
+                    filter(None, d["names_autocomplete"] | names_autocomplete)
+                )
                 yield d
         else:
             yield base_d
@@ -205,14 +194,22 @@ class Minion2MP2Convocation(models.Model):
 
         d["minion_id"] = self.minion_id
 
-        d["name_suggest"] = {
-            "input": generate_suggestions(
-                *parse_fullname(self.minion.name))
-        }
+        all_persons = set()
+        names_autocomplete = set()
+
+        all_persons.add("{}, {}".format(self.minion.name, "Помічник"))
+        l, f, p, _ = parse_fullname(self.minion.name)
+        for tr_name in TRANSLITERATOR.transliterate(l, f, p):
+            all_persons.add("{}, {}".format(tr_name, "Помічник"))
+
+        names_autocomplete.add(title(self.minion.name))
+        names_autocomplete.add(translit(title(self.minion.name), UkrainianKMU))
 
         d["_id"] = self.id
         d["id"] = self.minion.id
         d["name"] = self.minion.name
+        d["persons"] = all_persons
+        d["names_autocomplete"] = names_autocomplete
 
         return d
 
