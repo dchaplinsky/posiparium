@@ -5,6 +5,9 @@ from elasticsearch_dsl import (
 
 MINIONS_INDEX = "posiparium"
 minions_idx = Index(MINIONS_INDEX)
+minions_idx.settings(
+    number_of_replicas=0
+)
 
 namesAutocompleteAnalyzer = analyzer(
     'namesAutocompleteAnalyzer',
