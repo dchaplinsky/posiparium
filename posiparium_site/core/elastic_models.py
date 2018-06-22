@@ -11,8 +11,8 @@ namesAutocompleteAnalyzer = analyzer(
     tokenizer=tokenizer(
         'autocompleteTokenizer',
         type='edge_ngram',
-        min_gram=2,
-        max_gram=20,
+        min_gram=1,
+        max_gram=25,
         token_chars=[
             'letter',
             'digit'
@@ -57,6 +57,8 @@ class Minion(DocType):
 
     names_autocomplete = Text(
         analyzer='namesAutocompleteAnalyzer',
-        search_analyzer="namesAutocompleteSearchAnalyzer"
+        search_analyzer="namesAutocompleteSearchAnalyzer",
+
+        fields={'raw': Text(index=True)}
     )
     all = Text(analyzer='ukrainian')

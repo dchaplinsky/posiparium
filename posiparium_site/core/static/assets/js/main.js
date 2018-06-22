@@ -231,6 +231,9 @@
             updater: function(instance) {
                 return $(instance).data("sugg_text")
             },
+            sorter: function(items) {
+                return items
+            },
             afterSelect: function(item) {
                 var form = $(".search-form-q").closest("form");
                 form.find("input[name=is_exact]").val("on");
