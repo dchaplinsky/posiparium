@@ -65,3 +65,6 @@ class Minion(DocType):
         fields={'raw': Text(index=True)}
     )
     all = Text(analyzer='ukrainian')
+
+    class Meta:
+        doc_type = "posiparium_minions_doctype"
