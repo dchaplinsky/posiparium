@@ -9,7 +9,12 @@ from translitua import translit, UkrainianKMU
 from easy_thumbnails.files import get_thumbnailer
 from easy_thumbnails.exceptions import EasyThumbnailsError
 
-from core.tools.names import title, parse_fullname, TRANSLITERATOR
+from names_translator.name_utils import (
+    parse_and_generate,
+    autocomplete_suggestions,
+    concat_name,
+    title
+)
 
 
 class County(models.Model):
@@ -139,14 +144,8 @@ class MP2Convocation(models.Model):
             except EasyThumbnailsError:
                 pass
 
-        all_persons.add("{}, {}".format(self.mp.name, "Депутат"))
-        l, f, p, _ = parse_fullname(self.mp.name)
-        for tr_name in TRANSLITERATOR.transliterate(l, f, p):
-            all_persons.add("{}, {}".format(tr_name, "Депутат"))
-
-        names_autocomplete.add(title(self.mp.name))
-        names_autocomplete.add(translit(title(self.mp.name), UkrainianKMU))
-
+        all_persons |= parse_and_generate(self.mp.name, "Депутат")
+        names_autocomplete |= autocomplete_suggestions(self.mp.name)
 
         m["grouper"] = "%s %s" % (self.convocation_id, self.mp.name)
 
@@ -197,13 +196,8 @@ class Minion2MP2Convocation(models.Model):
         all_persons = set()
         names_autocomplete = set()
 
-        all_persons.add("{}, {}".format(self.minion.name, "Помічник"))
-        l, f, p, _ = parse_fullname(self.minion.name)
-        for tr_name in TRANSLITERATOR.transliterate(l, f, p):
-            all_persons.add("{}, {}".format(tr_name, "Помічник"))
-
-        names_autocomplete.add(title(self.minion.name))
-        names_autocomplete.add(translit(title(self.minion.name), UkrainianKMU))
+        all_persons |= parse_and_generate(self.minion.name, "Помічник")
+        names_autocomplete |= autocomplete_suggestions(self.minion.name)
 
         d["_id"] = self.id
         d["id"] = self.minion.id
