@@ -5,7 +5,6 @@ from django.forms.models import model_to_dict
 from django.urls import reverse
 from django.db import models
 
-from translitua import translit, UkrainianKMU
 from easy_thumbnails.files import get_thumbnailer
 from easy_thumbnails.exceptions import EasyThumbnailsError
 
