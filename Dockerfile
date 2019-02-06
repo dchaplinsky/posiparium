@@ -36,6 +36,8 @@ COPY docker-entrypoint.sh /usr/local/bin/
 COPY ./posiparium_site/ ${root}/
 
 RUN apk add --no-cache --virtual .build-deps nodejs npm \
+		# fix for build on some machines
+		&& npm config set unsafe-perm true \
 		&& npm install -g sass uglify-js \
 		&& python -m compileall ${root} \
 		&& mkdir -p ${STATIC_ROOT} ${STATIC_ROOT_SOURCE} ${MEDIA_ROOT} \
