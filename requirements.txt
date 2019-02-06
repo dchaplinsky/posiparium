@@ -11,3 +11,4 @@ easy-thumbnails==2.5
 raven==6.9.0
 tqdm==4.23.0
 names-translator==1.1.0
+gunicorn==19.9.0
