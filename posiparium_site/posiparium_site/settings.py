@@ -75,6 +75,11 @@ WSGI_APPLICATION = 'posiparium_site.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': get_env_str('DB_NAME', None),
+        'USER': get_env_str('DB_USER', None),
+        'PASSWORD': get_env_str('DB_PASS', None),
+        'HOST': get_env_str('DB_HOST', None),
+        'PORT': get_env_str('DB_PORT', 5432)
     }
 }
 
