@@ -63,3 +63,5 @@ Vagrantfile
 .ipynb_checkpoints
 *.ipynb
 data/
+
+.env
