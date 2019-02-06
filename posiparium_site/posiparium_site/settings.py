@@ -15,18 +15,26 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+def get_env_str(k, default):
+    return os.environ.get(k, default)
+
+def get_env_str_list(k, default=""):
+    if os.environ.get(k) is not None:
+        return os.environ.get(k).strip().split(" ")
+    return default
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SITE_ID = 1
-SECRET_KEY = '83**zfdwv$q(hd*j@qdpytjaqf5^pzfc)m^5y9!wxf_#67lsal'
+
+SECRET_KEY = get_env_str('SECRET_KEY', '83**zfdwv$q(hd*j@qdpytjaqf5^pzfc)m^5y9!wxf_#67lsal')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = get_env_str_list('ALLOWED_HOSTS', [])
 
 # Application definition
 
@@ -67,6 +75,11 @@ WSGI_APPLICATION = 'posiparium_site.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': get_env_str('DB_NAME', None),
+        'USER': get_env_str('DB_USER', None),
+        'PASSWORD': get_env_str('DB_PASS', None),
+        'HOST': get_env_str('DB_HOST', None),
+        'PORT': get_env_str('DB_PORT', 5432)
     }
 }
 
@@ -102,20 +115,12 @@ USE_I18N = False
 USE_L10N = False
 USE_TZ = False
 
-# Setup Elasticsearch default connection
-ELASTICSEARCH_CONNECTIONS = {
-    'default': {
-        'hosts': 'localhost',
-        'timeout': 20
-    }
-}
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+MEDIA_ROOT = get_env_str('MEDIA_ROOT', os.path.join(BASE_DIR, "media"))
+STATIC_ROOT = get_env_str('STATIC_ROOT', os.path.join(BASE_DIR, "static"))
 MEDIA_URL = '/media/'
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
@@ -218,6 +223,26 @@ THUMBNAIL_ALIASES = {
     '': {
         'avatar': {'size': (187, 187), 'crop': ",0", 'upscale': True},
     },
+}
+
+import raven
+
+try:
+    GIT_VERSION = raven.fetch_git_sha(os.path.abspath(os.path.join(BASE_DIR, "..")))
+except raven.exceptions.InvalidGitRepository:
+    GIT_VERSION = "undef"
+    pass
+
+RAVEN_CONFIG = {
+    'dsn': get_env_str('RAVEN_DSN', None),
+    'release': get_env_str('VERSION', GIT_VERSION),
+}
+
+ELASTICSEARCH_CONNECTIONS = {
+    'default': {
+        'hosts': get_env_str('ELASTICSEARCH_DSN', 'localhost:9200'),
+        'timeout': 20
+    }
 }
 
 try:
